@@ -5,6 +5,26 @@
 		 version="3.0">
   <display-name>Nebulas</display-name>
   
+  
+  
+  <!-- 以下3项参数与log4j的配置相关 -->     
+          
+	<context-param>     
+        <param-name>log4jConfigLocation</param-name>     
+        <param-value>/WEB-INF/configs/log4j.properties</param-value>     
+    </context-param>     
+         
+    <!-- 定义LOG4J监听器 -->      
+    <listener>     
+        <listener-class>     
+             org.springframework.web.util.Log4jConfigListener      
+        </listener-class>     
+    </listener>
+
+	<!-- end --> 
+  
+  
+  
   <!-- Spring应用上下文， 理解层次化的ApplicationContext -->
   <context-param>
  		<param-name>contextConfigLocation</param-name>
