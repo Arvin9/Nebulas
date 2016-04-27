@@ -54,6 +54,15 @@
 	    <!-- mvc-dispatcher拦截所有的请求-->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	
+	<context-param>
+ 		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/configs/spring-mybatis.xml</param-value>
+  </context-param>
+	
+	
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>

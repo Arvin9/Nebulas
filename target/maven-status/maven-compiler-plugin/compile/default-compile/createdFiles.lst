@@ -1,7 +1,11 @@
+site\nebulas\util\Unicode2Chinese.class
 site\nebulas\entity\Mail.class
+site\nebulas\service\DailySentenceService.class
 site\nebulas\controller\helloController.class
 site\nebulas\controller\homeController.class
 site\nebulas\controller\SendMailController.class
 site\nebulas\util\MailUtil.class
+site\nebulas\dao\DailySentenceDao.class
 site\nebulas\service\SendMailService.class
 site\nebulas\entity\EmailMessage.class
+site\nebulas\entity\DailySentence.class
