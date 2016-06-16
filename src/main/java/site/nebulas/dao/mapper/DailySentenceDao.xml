@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.nebulas.dao.DailySentenceDao">
 
-	<select id="getDailySentenceByParm" resultType="DailySentence">
+	<select id="getDailySentenceByParm" resultType="site.nebulas.entity.DailySentence">
 		select 
 			id,
 			sentence,
