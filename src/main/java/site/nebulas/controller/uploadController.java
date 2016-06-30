@@ -27,10 +27,18 @@ public class uploadController {
 	private FileService fileService;
 	
 	
+	@RequestMapping("/fineUploader")
+	public String fineUploader(){
+		
+		logger.debug("fineUploader debug");
+		
+		return "fineUploader";
+	}
+	
 	@RequestMapping("/upload")
 	public String upload(){
 		
-		logger.debug("helllo debug");
+		logger.debug("upload debug");
 		
 		return "upload";
 	}
