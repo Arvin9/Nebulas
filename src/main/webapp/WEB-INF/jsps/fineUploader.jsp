@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             element: document.getElementById("fine-uploader-validation"),
             template: 'qq-template-validation',
             request: {
-                endpoint: 'http://open.99yee.cn/api/supported_languages.json'
+                endpoint: '/fineUploadFile' 
             },
             thumbnails: {
                 placeholders: {
@@ -102,8 +102,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             params: {                
             	                        	               
            	},
-           	headers:{
-           		Authorization: "WzV6YQLzShiESxk-H1ZN"
+           	onComplete:  function(id,  fileName,  responseJSON)  {
+           		alert(responseJSON);
            	},
             validation: {
                 allowedExtensions: ['jpeg', 'jpg', 'txt','zip'],

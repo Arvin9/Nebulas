@@ -9,6 +9,9 @@ public class File {
 	private Long fileSize;
 	private String desc;
 	private String addTime;
+	private String success;
+	
+	
 	public Integer getFileID() {
 		return fileID;
 	}
@@ -51,6 +54,12 @@ public class File {
 	}
 	public void setAddTime(String addTime) {
 		this.addTime = addTime;
+	}
+	public String getSuccess() {
+		return success;
+	}
+	public void setSuccess(String success) {
+		this.success = success;
 	}
 	
 	
