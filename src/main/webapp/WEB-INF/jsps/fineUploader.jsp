@@ -88,9 +88,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     ====================================================================== -->
     <script>
         var restrictedUploader = new qq.FineUploader({
-            element: document.getElementById("fine-uploader-validation"),
-            template: 'qq-template-validation',
+            element	: 	document.getElementById("fine-uploader-validation"),
+            template: 	'qq-template-validation',
+            messages:{
+            	onLeave :	'The files are being uploaded, if you leave now the upload will be canceled.',
+                sizeError:	'{file} 太大, 最大为 {sizeLimit}.',
+                typeError:	'{file} 文件类型暂不支持. 当前支持文件类型为: {extensions}'
+            }, 
             request: {
+            	customHeaders:	{},
+            	inputName:	'qqfile',
                 endpoint: '/fineUploadFile' 
             },
             thumbnails: {
