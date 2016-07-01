@@ -18,11 +18,12 @@ public class helloController {
 	private Logger logger = LoggerFactory.getLogger(helloController.class);
 	
 	@Resource 
-	private DailySentenceService dailySentenceService;
+	private DailySentenceService dailySentenceService; 
 	
 	
 	@RequestMapping("/hello")
 	public String hello(){
+		
 		System.out.println(dailySentenceService.getDailySentenceByParm(null).get(0).getSentence());
 		System.out.println(dailySentenceService.getDailySentenceByParm(null).size());
 		logger.debug(dailySentenceService.getDailySentenceByParm(null).toString());
