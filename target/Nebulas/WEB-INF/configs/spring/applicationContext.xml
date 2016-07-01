@@ -38,4 +38,6 @@
 	    <property name="configLocation" value="/WEB-INF/configs/spring-mybatis.xml" />  
 	</bean> 
 	
+
+	
 </beans>
