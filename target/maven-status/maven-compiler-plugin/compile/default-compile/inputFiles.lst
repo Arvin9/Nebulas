@@ -3,6 +3,7 @@ E:\Git\Nebulas\src\main\java\site\nebulas\controller\SendMailController.java
 E:\Git\Nebulas\src\main\java\site\nebulas\entity\Mail.java
 E:\Git\Nebulas\src\main\java\site\nebulas\dao\DailySentenceDao.java
 E:\Git\Nebulas\src\main\java\site\nebulas\service\FileService.java
+E:\Git\Nebulas\src\main\java\site\nebulas\util\Encodes.java
 E:\Git\Nebulas\src\main\java\site\nebulas\service\MyTestServiceImpl.java
 E:\Git\Nebulas\src\main\java\site\nebulas\entity\DailySentence.java
 E:\Git\Nebulas\src\main\java\site\nebulas\entity\File.java
