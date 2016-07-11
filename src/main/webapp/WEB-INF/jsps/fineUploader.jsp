@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             request: {
             	customHeaders:	{},
             	inputName:	'qqfile',
-                endpoint: '/fineUploadFile' 
+                endpoint: 'fineUploadFile' 
             },
             thumbnails: {
                 placeholders: {

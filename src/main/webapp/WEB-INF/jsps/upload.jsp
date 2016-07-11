@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="<%=path%>/resources/css/style.css" rel="stylesheet">
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="<%=path%>/resources/js/dropzone.js"></script>
-		
+
 	</head>
 	
 	<body>
@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script>
 			//初始化dropzone
 		    $("#dropz").dropzone({
-		        url: "/uploadFile",
+		        url: "uploadFile",
 		        method: "post",
 		        paramName: "uploadFile",
 		        enctype: "multipart/form-data",
