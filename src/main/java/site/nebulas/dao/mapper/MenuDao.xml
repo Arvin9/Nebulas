@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nebulas.dao.MenuDao">
+
+	<select id="getMenuByParm" resultType="site.nebulas.entity.Menu">
+		select 
+			id,
+			menu_id menuID,
+			parent_id parentID,
+			menu_name menuName,
+			menu_url menuUrl,
+			menu_desc menuDesc,
+			is_leaf isLeaf	
+		from menu  
+		ORDER BY menu_id 
+		
+	
+	</select>
+</mapper>
