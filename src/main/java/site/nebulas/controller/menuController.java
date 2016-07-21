@@ -7,9 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import site.nebulas.entity.Menu;
 import site.nebulas.service.DailySentenceService;
 import site.nebulas.service.MenuService;
 
@@ -26,10 +29,31 @@ public class menuController {
 	@RequestMapping("menu")
 	public ModelAndView menu(){
 		ModelAndView modelAndView = new ModelAndView("menu");
-		modelAndView.addObject("menuTree", menuService.getMenuByParm(null));
-		logger.info(menuService.getMenuByParm(null));
-		
 		return modelAndView;
+	}
+	
+	@RequestMapping("editMenu")
+	public ModelAndView editMenu(){
+		ModelAndView modelAndView = new ModelAndView("editMenu");
+		return modelAndView;
+	}
+	
+	@RequestMapping("queryMenu")
+	@ResponseBody
+	public Object queryMenu(Menu menu){
+		logger.info(menuService.getMenuByParm(menu).toString());
+		
+		return menuService.getMenuByParm(menu);
+	}
+	@RequestMapping("updateMenu")
+	@ResponseBody
+	public void updateMenu(Menu menu){
+		menuService.update(menu);
+	}
+	@RequestMapping("deleteMenu")
+	@ResponseBody
+	public void deleteMenu(Menu menu){
+		menuService.delete(menu);
 	}
 	
 }

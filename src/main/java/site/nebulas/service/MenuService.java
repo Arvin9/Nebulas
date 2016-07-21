@@ -1,12 +1,8 @@
 package site.nebulas.service;
 
 import java.util.List;
-import com.amazonaws.util.json.JSONObject;
-import com.amazonaws.util.json.JSONArray;
-import com.amazonaws.util.json.JSONException;
-
+import java.util.Map;
 import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,7 +19,7 @@ public class MenuService {
 	/*
 	 * @author CaiHonghui
 	 * @version 
-	 * @see 查询menu_list将其封装成menu树，当前仅仅适用于二层树 
+	 * @see
 	 * @param 
 	 * @return menu树json
 	 * @exception 
@@ -31,35 +27,18 @@ public class MenuService {
 	 * 
 	 * */
 	
-	public String getMenuByParm(Menu menu){
-		JSONObject jsonObject = new JSONObject();
-		JSONArray jsonArray = new JSONArray();
-		JSONArray jsonArray2 = new JSONArray();
-		List<Menu> menuList =  menuDao.getMenuByParm(null);
-		
-		try {
-			int i = 1;
-			for(Menu m : menuList){
-				if(m.getParentID() == 1){					
-					for(Menu mm : menuList){
-						if(mm.getParentID() == m.getMenuID()){
-							jsonArray2.put(new JSONObject(mm));
-						}				
-					}
-					jsonArray.put(new JSONObject(m).accumulate("children",jsonArray2));
-					jsonArray2 = null;
-					i++;
-				}	
-			}
-			jsonObject.append("menu", jsonArray);
-			
-			logger.info(jsonObject.toString());
-		} catch (JSONException e) {
-			logger.error("json封装异常");
-			e.printStackTrace();
-		}
-		
-		
-		return jsonObject.toString();	
+	public List<Map<String,Object>> getMenuByParm(Menu menu){
+		return menuDao.getMenuByParm(menu);	
+	}
+	public void insert(Menu menu){
+		menuDao.insert(menu);
+	}
+	
+	public void update(Menu menu){
+		menuDao.update(menu);
+	}
+	
+	public void delete(Menu menu){
+		menuDao.delete(menu);
 	}
 }

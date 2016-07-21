@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
   <SCRIPT LANGUAGE="JavaScript">
+   var curMenu = null, zTree_Menu = null;
    var zTreeObj;
    // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
    var zNodes = null;
@@ -37,6 +38,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			enable: true,
 			url: "/queryMenu"
 		},
+		edit: {
+			enable: true
+		},
 		data: {
 			simpleData: {
 				enable: true,
@@ -44,9 +48,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				pIdKey: "pId",
 				rootPId: 0
 			}
+		},
+		callback: {
+			beforeRemove: zTreeBeforeRemove,
+			beforeRename: zTreeBeforeRename,
+			onRename: zTreeOnRename,
+			onRemove: zTreeOnRemove
 		}
-   };
 
+   };
+  
+   function zTreeBeforeRemove(treeId, treeNode) {
+	   if(confirm("确认删除?")){
+			return true;
+	   }
+	   return false;
+	}
+   function zTreeBeforeRename(treeId, treeNode, newName, isCancel) {
+		return newName.length > 2;
+	}
+   
+   function zTreeOnRemove(event, treeId, treeNode) {
+	   $.post("/deleteMenu",{id : treeNode.id})
+	}
+   function zTreeOnRename(event, treeId, treeNode, isCancel) {
+	   $.post("/updateMenu",{id : treeNode.id, name : treeNode.name})
+	}
    $(document).ready(function(){
       zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
    });

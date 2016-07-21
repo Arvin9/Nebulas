@@ -2,18 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.nebulas.dao.MenuDao">
 
-	<select id="getMenuByParm" resultType="site.nebulas.entity.Menu">
+	<select id="getMenuByParm" resultType="java.util.Map">
 		select 
-			id,
-			menu_id menuID,
-			parent_id parentID,
-			menu_name menuName,
-			menu_url menuUrl,
-			menu_desc menuDesc,
-			is_leaf isLeaf	
+			id id,
+			p_id pId,
+			name name,
+			url url
 		from menu  
-		ORDER BY menu_id 
-		
-	
+		ORDER BY id ASC
 	</select>
+	
+	<update id="update">
+		update menu
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name},
+			</if>
+			<if test="url !=null and url !='' ">
+				url = #{url}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from menu
+		where id = #{id}
+	</delete>
 </mapper>
