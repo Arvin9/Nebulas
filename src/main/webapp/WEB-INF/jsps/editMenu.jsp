@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/resources/lib/jquery-1.11.1.js"></script>
   	<script src="<%=path%>/resources/ztree/js/jquery.ztree.core.min.js" type="text/javascript" ></script>
  	<script src="<%=path%>/resources/ztree/js/jquery.ztree.exedit.min.js" type="text/javascript" ></script>
+	<script src="<%=path%>/resources/ztree/js/jquery.ztree.excheck.min.js" type="text/javascript" ></script>
 </head>
 <body>
 
@@ -25,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <ul id="treeDemo" class="ztree"></ul>
 </div>
 
-
+<button type="button" onclick="cl()">hh</button>
 
   <SCRIPT LANGUAGE="JavaScript">
    var curMenu = null, zTree_Menu = null;
@@ -38,15 +39,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			enable: true,
 			url: "/queryMenu"
 		},
-		edit: {
-			enable: true
+		check: {
+			enable: true,
+			chkStyle: "checkbox",
+			chkboxType: { "Y": "ps", "N": "ps" }
 		},
 		data: {
+			key: {
+				name: "menuName",
+				url: "menuUrl"
+			},
 			simpleData: {
 				enable: true,
-				idKey: "id",
-				pIdKey: "pId",
-				rootPId: 0
+				idKey: "menuId",
+				pIdKey: "parentId",
+				rootPId: "root"
 			}
 		},
 		callback: {
@@ -58,6 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
    };
   
+   
+   
    function zTreeBeforeRemove(treeId, treeNode) {
 	   if(confirm("确认删除?")){
 			return true;
@@ -77,6 +86,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    $(document).ready(function(){
       zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
    });
+   
+   function cl(){
+	   var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+	   var nodes = treeObj.getCheckedNodes(true);
+	   var nodeStr = '';
+	   for(i=0;i<nodes.length;i++){
+		   nodeStr += nodes[i].menuId + ',';
+	   }
+	   alert(nodeStr); 
+	   console.log(nodeStr);
+   }
   </SCRIPT>
 
 

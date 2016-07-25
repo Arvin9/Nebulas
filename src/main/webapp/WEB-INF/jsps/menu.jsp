@@ -21,13 +21,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 
-<div>
-   <ul id="treeDemo" class="ztree"></ul>
-</div>
+	<div class="container">
+		<ul class="nav nav-pills">
+			<li role="presentation" class="active"><a href="#">Home</a></li>
+			<li role="presentation"><a href="#">Profile</a></li>
+			<li role="presentation"><a href="#">Messages</a></li>
+		</ul>
+		<div class="row">
+			<div class="col-md-3">
+				<div>
+					<ul id="treeDemo" class="ztree"></ul>
+				</div>
+			</div>
+			
+			<div class="col-md-9">
+				<table class="table table-striped">
+				  ...
+				</table>
+			
+			</div>
+		</div>
+		
+	</div>
 
 
 
-  <SCRIPT LANGUAGE="JavaScript">
+
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
    var zTreeObj;
    // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
    var zNodes = null;
@@ -38,11 +61,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			url: "/queryMenu"
 		},
 		data: {
+			key: {
+				name: "menuName",
+				url: "menuUrl"
+			},
 			simpleData: {
 				enable: true,
-				idKey: "id",
-				pIdKey: "pId",
-				rootPId: 0
+				idKey: "menuId",
+				pIdKey: "parentId",
+				rootPId: "root"
 			}
 		}
    };

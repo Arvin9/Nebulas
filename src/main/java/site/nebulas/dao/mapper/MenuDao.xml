@@ -5,10 +5,12 @@
 	<select id="getMenuByParm" resultType="java.util.Map">
 		select 
 			id id,
-			p_id pId,
-			name name,
-			url url
-		from menu  
+			menu_id menuId,
+			menu_name menuName,
+			parent_id parentId,
+			menu_url menuUrl,
+			available
+		from menu_info  
 		ORDER BY id ASC
 	</select>
 	

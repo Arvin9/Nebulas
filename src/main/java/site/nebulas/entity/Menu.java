@@ -2,34 +2,48 @@ package site.nebulas.entity;
 
 public class Menu {
 	private Integer id;
-	private Integer pId;
-	private String name;
-	private String url;
+	private Integer menuId;
+	private String menuName;
+	private String parentId;
+	private String menuUrl;
+	private Integer available;
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getpId() {
-		return pId;
+	public Integer getMenuId() {
+		return menuId;
 	}
-	public void setpId(Integer pId) {
-		this.pId = pId;
+	public void setMenuId(Integer menuId) {
+		this.menuId = menuId;
 	}
-	public String getName() {
-		return name;
+	public String getMenuName() {
+		return menuName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
 	}
-	public String getUrl() {
-		return url;
+	public String getParentId() {
+		return parentId;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
-	
+	public String getMenuUrl() {
+		return menuUrl;
+	}
+	public void setMenuUrl(String menuUrl) {
+		this.menuUrl = menuUrl;
+	}
+	public Integer getAvailable() {
+		return available;
+	}
+	public void setAvailable(Integer available) {
+		this.available = available;
+	}
+
 
 	
 	
