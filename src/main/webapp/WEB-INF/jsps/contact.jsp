@@ -14,16 +14,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Bootstrap -->
 		<link href="<%=path%>/resources/css/bootstrap.min.css" rel="stylesheet">
-		
-		
-		 <!-- Custom styles for this template -->
+		<!-- Custom styles for this template -->
     	<link href="<%=path%>/resources/css/footer.css" rel="stylesheet">
-    	
 		<script  src="<%=path%>/resources/lib/jquery-1.11.1.js"></script>
 		<script src="<%=path%>/resources/js/bootstrap.min.js"></script>		
 		<script src="<%=path%>/resources/js/dropdown.js"></script>
 		<!-- 表单验证 -->
-		
 		<script  src="<%=path%>/resources/dist/jquery.validate.js" type="text/javascript"></script>
 		<script  src="<%=path%>/resources/dist/additional-methods.js" type="text/javascript"></script>
 	</head>
@@ -99,19 +95,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </html>
 <script type="text/javascript">
 
-$.validator.setDefaults( {
-	submitHandler: function () {
-		alert( "消息提交成功!" );
-		form.submit();
-	}
-} );
-
-
-	
-	
+	$.validator.setDefaults( {
+		submitHandler: function () {
+			alert( "消息提交成功!" );
+			form.submit();
+		}
+	} );
 	$().ready(function() {
-		
-		
 		$( "#signupForm" ).validate( {
 			rules: {
 				name:{

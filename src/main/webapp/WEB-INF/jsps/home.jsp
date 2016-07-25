@@ -56,7 +56,7 @@
 
 
 				<p>
-					<a class="btn btn-lg btn-primary" href="<%=path%>/jsps/contact.jsp" role="button">Contact me &raquo;</a>
+					<a class="btn btn-lg btn-primary" href="<%=path%>/contact" role="button">Contact me &raquo;</a>
 				</p>
 			</div>
 
