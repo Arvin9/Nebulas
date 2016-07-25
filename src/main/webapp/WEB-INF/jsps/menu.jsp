@@ -12,10 +12,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>menu</title>
 <!-- Bootstrap -->
 	<link href="<%=path%>/resources/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=path%>/resources/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 	<link href="<%=path%>/resources/ztree/css/demo.css" type="text/css" rel="stylesheet">
 	<link href="<%=path%>/resources/ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
 
 	<script src="<%=path%>/resources/lib/jquery-1.11.1.js"></script>
+	<script src="<%=path%>/resources/bootstrap-table/bootstrap-table.min.js"></script>
   	<script src="<%=path%>/resources/ztree/js/jquery.ztree.core.min.js" type="text/javascript" ></script>
  	<script src="<%=path%>/resources/ztree/js/jquery.ztree.exedit.min.js" type="text/javascript" ></script>
 </head>
@@ -35,9 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 			<div class="col-md-9">
-				<table class="table table-striped">
-				  ...
-				</table>
+				<table id="table"></table>
 			
 			</div>
 		</div>
@@ -79,7 +79,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    });
   </SCRIPT>
 
+<script>
+    $(function() {
+    	$('#table').bootstrapTable({
+    		 method: 'get',
+             url: "<%=path%>/queryMenu",
+             cache: false,
+             height: 600,
+             striped: true,
+             pagination: true,
+             pageSize: 20,
+             pageList: [5,10, 25, 50, 100, 200],
+             contentType: "application/x-www-form-urlencoded",
+             search: true,
+             showColumns: true,
+             showRefresh: true,
+             minimumCountColumns: 2,
+             clickToSelect: true,
+             singleSelect : false,
+             columns: [{
+            	 		title: 'Item ID',
+                        field: 'state',
+                        align: 'center',
+                        valign: 'middle'
+                    },{
+                        title: 'Item ID',
+                        field: 'id',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }]
+        })
+        
+    })
 
+</script>
 
 </body>
 </html>
