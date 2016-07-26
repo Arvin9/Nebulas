@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import site.nebulas.entity.Manager;
 import site.nebulas.entity.Menu;
+import site.nebulas.entity.Role;
 import site.nebulas.service.DailySentenceService;
 import site.nebulas.service.MenuService;
 
@@ -61,9 +62,9 @@ public class menuController {
 	
 	@RequestMapping("queryMenu")
 	@ResponseBody
-	public Object queryMenu(Menu menu){
-		logger.info(menuService.getMenuByParm(menu).toString());
-		return menuService.getMenuByParm(menu);
+	public Object queryMenu(Integer roleId){
+		logger.info(menuService.getMenuByParm(roleId).toString());
+		return menuService.getMenuByParm(roleId);
 	}
 	@RequestMapping("updateMenu")
 	@ResponseBody
@@ -75,12 +76,6 @@ public class menuController {
 	public void deleteMenu(Menu menu){
 		menuService.delete(menu);
 	}
-	@RequestMapping("queryRole")
-	@ResponseBody
-	public Object queryRole(Menu menu){
-		logger.info(menuService.getMenuByParm(menu).toString());
-		return menuService.getMenuByParm(menu);
-	}
 	
 	@RequestMapping("queryManage")
 	@ResponseBody
@@ -89,4 +84,16 @@ public class menuController {
 		return menuService.getManageByParm(manager);
 	}
 	
+	@RequestMapping("queryRole")
+	@ResponseBody
+	public Object queryRole(Role role){
+		logger.info(menuService.getRoleByParm(role).toString());
+		return menuService.getRoleByParm(role);
+	}
+	@RequestMapping("updateRole")
+	@ResponseBody
+	public String updateRole(Role role){
+		menuService.updateRole(role);
+		return "success";
+	}
 }

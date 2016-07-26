@@ -1,7 +1,12 @@
 package site.nebulas.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +14,7 @@ import org.springframework.stereotype.Service;
 import site.nebulas.dao.MenuDao;
 import site.nebulas.entity.Manager;
 import site.nebulas.entity.Menu;
+import site.nebulas.entity.Role;
 @Service
 public class MenuService {
 	@Resource
@@ -28,16 +34,46 @@ public class MenuService {
 	 * 
 	 * */
 	
-	public List<Map<String,Object>> getMenuByParm(Menu menu){
-		List<Map<String,Object>> list = menuDao.getMenuByParm(menu);
-		for(Map<String,Object> map : list){
-			map.put("target", "_self");
-			map.put("open", "true");
+	public List<Map<String,Object>> getMenuByParm(Integer roleId){
+		Role rl = new Role();
+		Set<String> menuSet = new HashSet<String>();
+		
+		List<Map<String,Object>> oldMenuList = menuDao.getMenuByParm(roleId);
+		List<Map<String,Object>> newMenuList = new ArrayList<Map<String,Object>>();
+		
+		if(null != roleId){
+			rl.setRoleId(roleId);
+			List<Map<String,Object>> listRole= this.getRoleByParm(rl);
+			Map<String,Object> mapRole = listRole.get(0);
+			String ownMenus = (String)mapRole.get("ownMenus");
+			String[] menu = ownMenus.split(",");
+			menuSet.addAll(Arrays.asList(menu));
+			for(Map<String,Object> map : oldMenuList){
+				if(menuSet.contains(map.get("menuId"))){
+					map.put("target", "_self");
+					map.put("open", "true");
+					newMenuList.add(map);
+				}
+			}
+		}else{
+			for(Map<String,Object> map : oldMenuList){
+				map.put("target", "_self");
+				map.put("open", "true");
+				newMenuList.add(map);
+			}
 		}
-		return list;	
+		return newMenuList;	
 	}
 	public List<Map<String,Object>> getManageByParm(Manager manager){
 		return menuDao.getManageByParm(manager);
+	}
+	
+	public List<Map<String,Object>> getRoleByParm(Role role){
+		return menuDao.getRoleByParm(role);
+	}
+	
+	public void updateRole(Role role){
+		menuDao.updateRole(role);
 	}
 	
 	

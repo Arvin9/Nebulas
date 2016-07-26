@@ -15,15 +15,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="<%=path%>/resources/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 	<link href="<%=path%>/resources/ztree/css/demo.css" type="text/css" rel="stylesheet">
 	<link href="<%=path%>/resources/ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+	<link href="<%=path%>/resources/jquery-validation/1.11.1/validate.css" rel="stylesheet">
 
 	<script src="<%=path%>/resources/lib/jquery-1.11.1.js"></script>
+	<script src="<%=path%>/resources/js/bootstrap.min.js"></script>
+	<script src="<%=path%>/resources/js/jquery.easyui.min.js"></script>
+	<script src="<%=path%>/resources/js/jquery.bootstrap.min.js"></script>
+	<script src="<%=path%>/resources/js/modal.js"></script>
+	<script src="<%=path%>/resources/jquery-validation/1.11.1/jquery.validate.min.js"></script>
 	<script src="<%=path%>/resources/bootstrap-table/bootstrap-table.min.js"></script>
   	<script src="<%=path%>/resources/ztree/js/jquery.ztree.core.min.js" type="text/javascript" ></script>
  	<script src="<%=path%>/resources/ztree/js/jquery.ztree.exedit.min.js" type="text/javascript" ></script>
+	<script src="<%=path%>/resources/ztree/js/jquery.ztree.excheck.min.js" type="text/javascript" ></script>
 </head>
 <body>
 
 	<div class="container">
+
+	
 		<!-- 动态包含 -->
 		<jsp:include page="page/top.jsp"></jsp:include>
 	
@@ -34,7 +43,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<div class="col-md-9">
 				<table id="table"></table>
-			
+
+				<!-- 修改块  start-->
+				<div id="wrap">
+					<form id="form" method="post" role="form"
+						enctype="multipart/form-data">
+						<div class="form-group" >
+							<div class="input-group">
+								<label class="input-group-addon" for="roleId">角色ID</label> 
+								<input type="text" class="form-control" name="roleId" readonly="readonly">
+								
+							</div>
+						</div>
+						<div class="form-group" >
+							<div class="input-group">
+								<label class="input-group-addon" for="roleName">角色名称</label> 
+								<input type="text" class="form-control" name="roleName" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group" >
+							<div class="input-group">
+								<label class="input-group-addon" for="ownMenus">所属菜单</label> 
+								<input type="text" class="form-control" name="ownMenus" id="ownMenus" readonly="readonly">
+							</div>
+						</div>
+						<div>
+							<ul id="editTree" class="ztree"></ul>
+							<button type="button" class="btn btn-default" onclick="modifyPermission()">确认修改角色权限</button>
+						</div>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						
+						<a onclick="Item.save()" class="btn btn-primary" id="submitButton">提交</a>
+					</form>
+				</div>
+				<!-- 修改块  end-->
+
 			</div>
 		</div>
 		
@@ -43,9 +86,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script>
     $(function() {
+    	Item.init();
     	$('#table').bootstrapTable({
     		 method: 'get',
-             url: "<%=path%>/queryMenu",
+             url: "<%=path%>/queryRole",
              cache: false,
              height: 600,
              striped: true,
@@ -60,46 +104,174 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              clickToSelect: true,
              singleSelect : false,
              columns: [{
-            	 		title: 'ID',
-                        field: 'id',
+            	 		title: '角色ID',
+                        field: 'roleId',
                         align: 'center',
                         valign: 'middle'
                     },{
-                        title: '菜单ID',
-                        field: 'menuId',
+                        title: '角色名称',
+                        field: 'roleName',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
+                        title: '操作',
+                        align: 'center',
+                        valign: 'middle',
+                        events: operateEvents,
+                        formatter: operateFormatter
+                    },{
+                        title: '所属菜单',
+                        field: 'ownMenus',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
+                        title: '添加人',
+                        field: 'addMan',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
+                        title: '添加时间',
+                        field: 'addTime',
                         align: 'left',
-                        valign: 'middle',
-                        sortable: true
-                    },{
-                        title: '菜单名称',
-                        field: 'menuName',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    },{
-                        title: '父节点 ID',
-                        field: 'parentId',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    },{
-                        title: '菜单Url',
-                        field: 'menuUrl',
-                        align: 'left',
-                        valign: 'middle',
-                        sortable: true
-                    },{
-                        title: '有效状态',
-                        field: 'available',
-                        align: 'center',
                         valign: 'middle',
                         sortable: true
                     }]
         })
         
     })
+    
+    function operateFormatter(value, row, index) {
+        return ['',
+				'<button class="btn btn-default" id="modify" type="botton">修改</button>'
+        ].join('');
+    }
+    window.operateEvents = {
+        'click #modify': function (e, value, row, index) {
+        	$("#wrap").dialog({title:"修改角色",autoOpen: false});
+        	$('#form').form("clear");
+        	
+        	Item.commitUrl = '${ctx}/updateRole';
+        	
+			$('#form').form("load",row);
+			$("#wrap").dialog("open");
+        }
+    };
+    
+    var Item = {
+			commitUrl : '',
+			init : function() {
+				$("#wrap").dialog({title:"操作",autoOpen: false});
+			},
+			save : function() {
+				$('#form').form({
+					url : Item.commitUrl,
+					 onSubmit:function(){ 
+						 var result = $(this).validate().form();
+						 if(!result){
+							 return false;
+						 }
+				        }, 
+					success:function(data){
+						 $("#wrap").dialog("close");
+						if(data =="success"){
+							 $.messager.popup("success!");
+							 $('#table').bootstrapTable('refresh');
+						}else{
+							$.messager.alert("提示", "failed!");
+						}
+					} 
+				});
+
+				if(!$('#url').val()=='' && !$('#url').val().startsWith('http')){
+					$.messager.popup('url必须是http/https开头！');
+					return false;
+				}else if(Item.commitUrl=='${ctx}/updateRole'){
+					$.messager.confirm("警告", "确定要更新吗!", function() {
+						$('#form').form('submit');
+					});
+				}else{
+					$('#form').form('submit');
+				}
+				
+			}
+			
+	}
 
 </script>
+
+  <SCRIPT LANGUAGE="JavaScript">
+   var zTreeObjEdit;
+   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+   var zNodesEdit = null;
+   // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+   var settingEdit = {
+		async: {
+			enable: true,
+			url: "/queryMenu"
+		},
+		check: {
+			enable: true,
+			chkStyle: "checkbox",
+			chkboxType: { "Y": "ps", "N": "ps" }
+		},
+		data: {
+			key: {
+				name: "menuName",
+				url: "menuUrl"
+			},
+			simpleData: {
+				enable: true,
+				idKey: "menuId",
+				pIdKey: "parentId",
+				rootPId: "root"
+			}
+		},
+		callback: {
+			beforeRemove: zTreeBeforeRemove,
+			beforeRename: zTreeBeforeRename,
+			onRename: zTreeOnRename,
+			onRemove: zTreeOnRemove
+		}
+
+   };
+  
+   
+   
+   function zTreeBeforeRemove(treeId, treeNode) {
+	   if(confirm("确认删除?")){
+			return true;
+	   }
+	   return false;
+	}
+   function zTreeBeforeRename(treeId, treeNode, newName, isCancel) {
+		return newName.length > 2;
+	}
+   
+   function zTreeOnRemove(event, treeId, treeNode) {
+	   $.post("/deleteMenu",{id : treeNode.id})
+	}
+   function zTreeOnRename(event, treeId, treeNode, isCancel) {
+	   $.post("/updateMenu",{id : treeNode.id, name : treeNode.name})
+	}
+   $(document).ready(function(){
+      zTreeObjEdit = $.fn.zTree.init($("#editTree"), settingEdit, zNodesEdit);
+   });
+   
+   function modifyPermission(){
+	   var treeObj = $.fn.zTree.getZTreeObj("editTree");
+	   var nodes = treeObj.getCheckedNodes(true);
+	   var nodeStr = '';
+	   for(i=0;i<nodes.length;i++){
+		   nodeStr += nodes[i].menuId + ',';
+	   }
+	   $('#ownMenus').val(nodeStr);
+	   alert(nodeStr); 
+	   console.log(nodeStr);
+   }
+  </SCRIPT>
 
 </body>
 </html>

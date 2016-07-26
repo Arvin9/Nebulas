@@ -6,6 +6,7 @@ public class Role {
 	private String addTime;
 	private String ownMenus;
 	private String addMan;
+	
 	public Integer getRoleId() {
 		return roleId;
 	}

@@ -12,7 +12,7 @@
    var setting = {
 		async: {
 			enable: true,
-			url: "/queryMenu"
+			url: "/queryMenu?roleId=10000"
 		},
 		data: {
 			key: {

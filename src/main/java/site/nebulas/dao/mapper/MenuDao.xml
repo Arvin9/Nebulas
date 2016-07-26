@@ -27,9 +27,46 @@
 			m.is_delete isDelete
 		from manager m
 		left join role_info r
-		where m.role_id = r.role_id  
-		ORDER BY mId ASC
+		on m.role_id = r.role_id  
+		ORDER BY m.m_id ASC
 	</select>
+	
+	<select id="getRoleByParm" resultType="java.util.Map">
+		select 
+			role_id roleId,
+			role_name roleName,
+			add_time addTime,
+			own_menus ownMenus,
+			add_man addMan
+		from role_info m
+		<where>
+			<if test="roleId != null and roleId != ''">
+				role_id = #{roleId}
+			</if>
+		</where>
+		ORDER BY role_id ASC
+	</select>
+	
+	
+	
+	<update id="updateRole">
+		update role_info
+		<set>
+			<if test="roleName != null and roleName != ''">
+				role_name = #{roleName},
+			</if>
+			<if test="addTime !=null and addTime !='' ">
+				add_time = #{addTime}
+			</if>
+			<if test="ownMenus !=null and ownMenus !='' ">
+				own_menus = #{ownMenus}
+			</if>
+			<if test="addMan !=null and addMan !='' ">
+				add_man = #{addMan}
+			</if>
+		</set>
+		where role_id = #{roleId}
+	</update>
 	
 	<update id="update">
 		update menu
