@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>menu</title>
+<title>角色管理</title>
 <!-- Bootstrap -->
 	<link href="<%=path%>/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=path%>/resources/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
@@ -41,13 +41,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 
 
-
-
 <script>
     $(function() {
     	$('#table').bootstrapTable({
     		 method: 'get',
-             url: "<%=path%>/queryMenu",
+             url: "<%=path%>/queryManage",
              cache: false,
              height: 600,
              striped: true,
@@ -63,36 +61,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              singleSelect : false,
              columns: [{
             	 		title: 'ID',
-                        field: 'id',
+                        field: 'mId',
                         align: 'center',
                         valign: 'middle'
                     },{
-                        title: '菜单ID',
-                        field: 'menuId',
+                        title: '角色ID',
+                        field: 'roleId',
                         align: 'left',
                         valign: 'middle',
                         sortable: true
                     },{
-                        title: '菜单名称',
-                        field: 'menuName',
+                        title: '名称',
+                        field: 'managerAccount',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     },{
-                        title: '父节点 ID',
-                        field: 'parentId',
+                        title: '真实姓名',
+                        field: 'realName',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     },{
-                        title: '菜单Url',
-                        field: 'menuUrl',
+                        title: '添加时间',
+                        field: 'addTime',
                         align: 'left',
                         valign: 'middle',
                         sortable: true
                     },{
-                        title: '有效状态',
-                        field: 'available',
+                        title: '是否被锁',
+                        field: 'isLock',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
+                        title: '添加人',
+                        field: 'addMan',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
+                        title: 'balance',
+                        field: 'balance',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
+                        title: '是否被删除',
+                        field: 'isDelete',
                         align: 'center',
                         valign: 'middle',
                         sortable: true

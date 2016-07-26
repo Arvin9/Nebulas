@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import site.nebulas.dao.MenuDao;
+import site.nebulas.entity.Manager;
 import site.nebulas.entity.Menu;
 @Service
 public class MenuService {
@@ -28,8 +29,18 @@ public class MenuService {
 	 * */
 	
 	public List<Map<String,Object>> getMenuByParm(Menu menu){
-		return menuDao.getMenuByParm(menu);	
+		List<Map<String,Object>> list = menuDao.getMenuByParm(menu);
+		for(Map<String,Object> map : list){
+			map.put("target", "_self");
+			map.put("open", "true");
+		}
+		return list;	
 	}
+	public List<Map<String,Object>> getManageByParm(Manager manager){
+		return menuDao.getManageByParm(manager);
+	}
+	
+	
 	public void insert(Menu menu){
 		menuDao.insert(menu);
 	}

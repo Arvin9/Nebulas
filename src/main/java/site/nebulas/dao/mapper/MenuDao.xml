@@ -14,6 +14,23 @@
 		ORDER BY id ASC
 	</select>
 	
+	<select id="getManageByParm" resultType="java.util.Map">
+		select 
+			m.m_id mId,
+			m.role_id roleId,
+			m.manager_account managerAccount,
+			m.real_name realName,
+			m.add_time addTime,
+			m.is_lock isLock,
+			m.add_man addMan,
+			m.balance balance,
+			m.is_delete isDelete
+		from manager m
+		left join role_info r
+		where m.role_id = r.role_id  
+		ORDER BY mId ASC
+	</select>
+	
 	<update id="update">
 		update menu
 		<set>

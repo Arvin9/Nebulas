@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>menu</title>
+<title>角色管理</title>
 <!-- Bootstrap -->
 	<link href="<%=path%>/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=path%>/resources/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
@@ -39,8 +39,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	</div>
-
-
 
 
 <script>
