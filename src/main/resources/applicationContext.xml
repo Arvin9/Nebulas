@@ -42,7 +42,7 @@
 	<!-- MyBatis配置 -->  
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
 	    <property name="dataSource" ref="dataSource" />  
-	    <property name="configLocation" value="/WEB-INF/configs/spring-mybatis.xml" />  
+	    <property name="configLocation" value="classpath:spring-mybatis.xml" />  
 	</bean> 
 	
 </beans>

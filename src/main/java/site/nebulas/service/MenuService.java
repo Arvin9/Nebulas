@@ -50,7 +50,7 @@ public class MenuService {
 			menuSet.addAll(Arrays.asList(menu));
 			for(Map<String,Object> map : oldMenuList){
 				if(menuSet.contains(map.get("menuId"))){
-					map.put("target", "_self");
+					map.put("target", "mainFrame");
 					map.put("open", "true");
 					newMenuList.add(map);
 				}
@@ -76,16 +76,16 @@ public class MenuService {
 		menuDao.updateRole(role);
 	}
 	
+	public void updateManage(Manager manager){
+		menuDao.updateManage(manager);
+	}
 	
 	public void insert(Menu menu){
 		menuDao.insert(menu);
 	}
 	
-	public void update(Menu menu){
-		menuDao.update(menu);
+	public void updateMenu(Menu menu){
+		menuDao.updateMenu(menu);
 	}
 	
-	public void delete(Menu menu){
-		menuDao.delete(menu);
-	}
 }

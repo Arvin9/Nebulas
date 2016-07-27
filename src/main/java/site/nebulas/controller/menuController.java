@@ -68,13 +68,9 @@ public class menuController {
 	}
 	@RequestMapping("updateMenu")
 	@ResponseBody
-	public void updateMenu(Menu menu){
-		menuService.update(menu);
-	}
-	@RequestMapping("deleteMenu")
-	@ResponseBody
-	public void deleteMenu(Menu menu){
-		menuService.delete(menu);
+	public String updateMenu(Menu menu){
+		menuService.updateMenu(menu);
+		return "success";
 	}
 	
 	@RequestMapping("queryManage")
@@ -82,6 +78,13 @@ public class menuController {
 	public Object queryManage(Manager manager){
 		logger.info(menuService.getManageByParm(manager).toString());
 		return menuService.getManageByParm(manager);
+	}
+	
+	@RequestMapping("updateManage")
+	@ResponseBody
+	public String updateManage(Manager manager){
+		menuService.updateManage(manager);
+		return "success";
 	}
 	
 	@RequestMapping("queryRole")

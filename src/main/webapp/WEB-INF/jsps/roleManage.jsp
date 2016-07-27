@@ -29,10 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/resources/ztree/js/jquery.ztree.excheck.min.js" type="text/javascript" ></script>
 </head>
 <body>
-
 	<div class="container">
-
-	
 		<!-- 动态包含 -->
 		<jsp:include page="page/top.jsp"></jsp:include>
 	
@@ -42,6 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<jsp:include page="page/nav.jsp"></jsp:include>
 			
 			<div class="col-md-9">
+
 				<table id="table"></table>
 
 				<!-- 修改块  start-->
@@ -51,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group" >
 							<div class="input-group">
 								<label class="input-group-addon" for="roleId">角色ID</label> 
-								<input type="text" class="form-control" name="roleId" readonly="readonly">
+								<input type="text" class="form-control" name="roleId"  readonly="readonly">
 								
 							</div>
 						</div>
@@ -69,7 +67,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div>
 							<ul id="editTree" class="ztree"></ul>
-							<button type="button" class="btn btn-default" onclick="modifyPermission()">确认修改角色权限</button>
 						</div>
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						
@@ -77,11 +74,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</form>
 				</div>
 				<!-- 修改块  end-->
-
 			</div>
 		</div>
 		
 	</div>
+
 
 
 <script>
@@ -230,37 +227,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		},
 		callback: {
-			beforeRemove: zTreeBeforeRemove,
-			beforeRename: zTreeBeforeRename,
-			onRename: zTreeOnRename,
-			onRemove: zTreeOnRemove
+			beforeCheck: zTreeBeforeCheck,
+			onCheck: zTreeOnCheck
 		}
 
    };
-  
-   
-   
-   function zTreeBeforeRemove(treeId, treeNode) {
-	   if(confirm("确认删除?")){
-			return true;
-	   }
-	   return false;
-	}
-   function zTreeBeforeRename(treeId, treeNode, newName, isCancel) {
-		return newName.length > 2;
-	}
-   
-   function zTreeOnRemove(event, treeId, treeNode) {
-	   $.post("/deleteMenu",{id : treeNode.id})
-	}
-   function zTreeOnRename(event, treeId, treeNode, isCancel) {
-	   $.post("/updateMenu",{id : treeNode.id, name : treeNode.name})
-	}
    $(document).ready(function(){
-      zTreeObjEdit = $.fn.zTree.init($("#editTree"), settingEdit, zNodesEdit);
+	      zTreeObjEdit = $.fn.zTree.init($("#editTree"), settingEdit, zNodesEdit);
    });
+	   
+  
+   function zTreeBeforeCheck(treeId, treeNode) {
+	    return true;
+	}
    
-   function modifyPermission(){
+   function zTreeOnCheck(){
 	   var treeObj = $.fn.zTree.getZTreeObj("editTree");
 	   var nodes = treeObj.getCheckedNodes(true);
 	   var nodeStr = '';
@@ -268,8 +249,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   nodeStr += nodes[i].menuId + ',';
 	   }
 	   $('#ownMenus').val(nodeStr);
-	   alert(nodeStr); 
-	   console.log(nodeStr);
    }
   </SCRIPT>
 

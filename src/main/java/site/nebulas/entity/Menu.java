@@ -2,7 +2,7 @@ package site.nebulas.entity;
 
 public class Menu {
 	private Integer id;
-	private Integer menuId;
+	private String menuId;
 	private String menuName;
 	private String parentId;
 	private String menuUrl;
@@ -13,10 +13,11 @@ public class Menu {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getMenuId() {
+	
+	public String getMenuId() {
 		return menuId;
 	}
-	public void setMenuId(Integer menuId) {
+	public void setMenuId(String menuId) {
 		this.menuId = menuId;
 	}
 	public String getMenuName() {
