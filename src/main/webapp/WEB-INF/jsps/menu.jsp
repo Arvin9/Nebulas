@@ -9,7 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>menu</title>
+<title>
+</title>
 <!-- Bootstrap -->
 	<link href="<%=path%>/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=path%>/resources/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
@@ -29,12 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		
 		<div class="row">
-		
+			
 			<jsp:include page="page/nav.jsp"></jsp:include>
 			
 			<div class="col-md-9">
 				<table id="table"></table>
-				<iframe id="mainFrame" name="mainFrame">
+				<iframe id="mainFrame" name="mainFrame"  width="900px" height="600px">
 				</iframe>
 			</div>
 		</div>
