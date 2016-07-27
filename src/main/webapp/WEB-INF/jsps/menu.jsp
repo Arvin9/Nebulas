@@ -34,74 +34,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<div class="col-md-9">
 				<table id="table"></table>
-			
+				<iframe id="mainFrame" name="mainFrame">
+				</iframe>
 			</div>
 		</div>
 		
 	</div>
 
-
-
-
-<script>
-    $(function() {
-    	$('#table').bootstrapTable({
-    		 method: 'get',
-             url: "<%=path%>/queryMenu",
-             cache: false,
-             height: 600,
-             striped: true,
-             pagination: true,
-             pageSize: 20,
-             pageList: [5,10, 25, 50, 100, 200],
-             contentType: "application/x-www-form-urlencoded",
-             search: true,
-             showColumns: true,
-             showRefresh: true,
-             minimumCountColumns: 2,
-             clickToSelect: true,
-             singleSelect : false,
-             columns: [{
-            	 		title: 'ID',
-                        field: 'id',
-                        align: 'center',
-                        valign: 'middle'
-                    },{
-                        title: '菜单ID',
-                        field: 'menuId',
-                        align: 'left',
-                        valign: 'middle',
-                        sortable: true
-                    },{
-                        title: '菜单名称',
-                        field: 'menuName',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    },{
-                        title: '父节点 ID',
-                        field: 'parentId',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    },{
-                        title: '菜单Url',
-                        field: 'menuUrl',
-                        align: 'left',
-                        valign: 'middle',
-                        sortable: true
-                    },{
-                        title: '有效状态',
-                        field: 'available',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    }]
-        })
-        
-    })
-
-</script>
 
 </body>
 </html>

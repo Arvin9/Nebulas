@@ -68,21 +68,57 @@
 		where role_id = #{roleId}
 	</update>
 	
-	<update id="update">
-		update menu
+	<update id="updateManage">
+		update manager
 		<set>
-			<if test="name != null and name != ''">
-				name = #{name},
+			<if test="roleId != null and roleId != ''">
+				role_id = #{roleId},
 			</if>
-			<if test="url !=null and url !='' ">
-				url = #{url}
+			<if test="managerAccount !=null and managerAccount !='' ">
+				manager_account = #{managerAccount},
+			</if>
+			<if test="realName !=null and realName !='' ">
+				real_name = #{realName},
+			</if>
+			<if test="addTime !=null and addTime !='' ">
+				add_time = #{addTime},
+			</if>
+			<if test="isLock !=null">
+				is_lock = #{isLock},
+			</if>
+			<if test="addMan !=null and addMan !='' ">
+				add_man = #{addMan},
+			</if>
+			<if test="balance !=null and balance !='' ">
+				balance = #{balance},
+			</if><if test="isDelete !=null">
+				is_delete = #{isDelete}
+			</if>
+		</set>
+		where m_id = #{mId}
+	</update>
+	
+	<update id="updateMenu">
+		update menu_info
+		<set>
+			<if test="menuId != null and menuId != ''">
+				menu_id = #{menuId},
+			</if>
+			<if test="menuName !=null and menuName !='' ">
+				menu_name = #{menuName},
+			</if>
+			<if test="parentId !=null and parentId !='' ">
+				parent_id = #{parentId},
+			</if>
+			<if test="menuUrl !=null and menuUrl !='' ">
+				menu_url = #{menuUrl},
+			</if>
+			<if test="available !=null">
+				available = #{available}
 			</if>
 		</set>
 		where id = #{id}
 	</update>
 	
-	<delete id="delete">
-		delete from menu
-		where id = #{id}
-	</delete>
+	
 </mapper>

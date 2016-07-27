@@ -69,7 +69,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div>
 							<ul id="editTree" class="ztree"></ul>
-							<button type="button" class="btn btn-default" onclick="modifyPermission()">确认修改角色权限</button>
 						</div>
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						
@@ -230,37 +229,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		},
 		callback: {
-			beforeRemove: zTreeBeforeRemove,
-			beforeRename: zTreeBeforeRename,
-			onRename: zTreeOnRename,
-			onRemove: zTreeOnRemove
+			beforeCheck: zTreeBeforeCheck,
+			onCheck: zTreeOnCheck
 		}
 
    };
-  
-   
-   
-   function zTreeBeforeRemove(treeId, treeNode) {
-	   if(confirm("确认删除?")){
-			return true;
-	   }
-	   return false;
-	}
-   function zTreeBeforeRename(treeId, treeNode, newName, isCancel) {
-		return newName.length > 2;
-	}
-   
-   function zTreeOnRemove(event, treeId, treeNode) {
-	   $.post("/deleteMenu",{id : treeNode.id})
-	}
-   function zTreeOnRename(event, treeId, treeNode, isCancel) {
-	   $.post("/updateMenu",{id : treeNode.id, name : treeNode.name})
-	}
    $(document).ready(function(){
-      zTreeObjEdit = $.fn.zTree.init($("#editTree"), settingEdit, zNodesEdit);
+	      zTreeObjEdit = $.fn.zTree.init($("#editTree"), settingEdit, zNodesEdit);
    });
+	   
+  
+   function zTreeBeforeCheck(treeId, treeNode) {
+	    return true;
+	}
    
-   function modifyPermission(){
+   function zTreeOnCheck(){
 	   var treeObj = $.fn.zTree.getZTreeObj("editTree");
 	   var nodes = treeObj.getCheckedNodes(true);
 	   var nodeStr = '';
@@ -268,8 +251,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   nodeStr += nodes[i].menuId + ',';
 	   }
 	   $('#ownMenus').val(nodeStr);
-	   alert(nodeStr); 
-	   console.log(nodeStr);
    }
   </SCRIPT>
 
