@@ -29,10 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/resources/ztree/js/jquery.ztree.excheck.min.js" type="text/javascript" ></script>
 </head>
 <body>
-
 	<div class="container">
-
-	
 		<!-- 动态包含 -->
 		<jsp:include page="page/top.jsp"></jsp:include>
 	
@@ -42,6 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<jsp:include page="page/nav.jsp"></jsp:include>
 			
 			<div class="col-md-9">
+
 				<table id="table"></table>
 
 				<!-- 修改块  start-->
@@ -51,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group" >
 							<div class="input-group">
 								<label class="input-group-addon" for="roleId">角色ID</label> 
-								<input type="text" class="form-control" name="roleId" readonly="readonly">
+								<input type="text" class="form-control" name="roleId"  readonly="readonly">
 								
 							</div>
 						</div>
@@ -76,11 +74,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</form>
 				</div>
 				<!-- 修改块  end-->
-
 			</div>
 		</div>
 		
 	</div>
+
 
 
 <script>
