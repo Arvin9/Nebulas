@@ -18,6 +18,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="<%=path%>/resources/ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
 
 	<script src="<%=path%>/resources/lib/jquery-1.11.1.js"></script>
+	<script src="<%=path%>/resources/js/jquery.easyui.min.js"></script>
+	<script src="<%=path%>/resources/js/bootstrap.min.js"></script>
+	<script src="<%=path%>/resources/js/jquery.bootstrap.min.js"></script>
+	<script src="<%=path%>/resources/js/modal.js"></script>
 	<script src="<%=path%>/resources/bootstrap-table/bootstrap-table.min.js"></script>
   	<script src="<%=path%>/resources/ztree/js/jquery.ztree.core.min.js" type="text/javascript" ></script>
  	<script src="<%=path%>/resources/ztree/js/jquery.ztree.exedit.min.js" type="text/javascript" ></script>
@@ -27,21 +31,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="container">
 		<!-- 动态包含 -->
 		<jsp:include page="page/top.jsp"></jsp:include>
-	
+		
 		
 		<div class="row">
 			
 			<jsp:include page="page/nav.jsp"></jsp:include>
 			
 			<div class="col-md-9">
-				<iframe id="mainFrame" name="mainFrame" src="/roleManage" width="900px" height="800px">
-				gfdg 
+				<iframe id="mainFrame" name="mainFrame" src="" style="overflow:visible;" scrolling="yes" frameborder="no" width="100%" height="650">
+				
 				</iframe>
+				
 			</div>
 		</div>
 		
 	</div>
-
+		
 
 </body>
 </html>

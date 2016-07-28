@@ -5,6 +5,7 @@
 </div>
 
 <SCRIPT LANGUAGE="JavaScript">
+   var roleId = ${roleId}
    var zTreeObj;
    // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
    var zNodes;
@@ -12,7 +13,7 @@
    var setting = {
 		async: {
 			enable: true,
-			url: "/queryMenu?roleId=10000"
+			url: "/queryMenu?roleId="+roleId+""
 		},
 		data: {
 			key: {

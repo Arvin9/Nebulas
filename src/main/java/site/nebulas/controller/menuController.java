@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,30 @@ public class menuController {
 	public ModelAndView menu(){
 		ModelAndView modelAndView = new ModelAndView("menu");
 		return modelAndView;
+	}
+	
+	@RequestMapping("signIn")
+	public ModelAndView signIn(){
+		ModelAndView modelAndView = new ModelAndView("signIn");
+		return modelAndView;
+	}
+	
+	@RequestMapping("login")
+	public String login(Model model,String userName,String password){
+		System.out.println(userName);
+		if("admin".equals(userName)){
+			model.addAttribute("roleId", "10000");
+			return "menu";
+		}
+		if("test1".equals(userName)){
+			model.addAttribute("roleId", "10009");
+			return "menu";
+		}
+		if("test2".equals(userName)){
+			model.addAttribute("roleId", "10010");
+			return "menu";
+		}
+		return "signIn";
 	}
 	
 	
@@ -63,9 +88,15 @@ public class menuController {
 	@RequestMapping("queryMenu")
 	@ResponseBody
 	public Object queryMenu(Integer roleId){
-		logger.info(menuService.getMenuByParm(roleId).toString());
 		return menuService.getMenuByParm(roleId);
 	}
+	
+	@RequestMapping("queryMenuEdit")
+	@ResponseBody
+	public Object queryMenuEdit(Integer roleId){
+		return menuService.getMenuEditByParm(roleId);
+	}
+	
 	@RequestMapping("updateMenu")
 	@ResponseBody
 	public String updateMenu(Menu menu){
@@ -97,6 +128,12 @@ public class menuController {
 	@ResponseBody
 	public String updateRole(Role role){
 		menuService.updateRole(role);
+		return "success";
+	}
+	@RequestMapping("insertRole")
+	@ResponseBody
+	public String insertRole(Role role){
+		menuService.insertRole(role);
 		return "success";
 	}
 }

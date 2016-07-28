@@ -29,34 +29,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/resources/ztree/js/jquery.ztree.excheck.min.js" type="text/javascript" ></script>
 </head>
 <body>
-	<div class="container">
-		<!-- 动态包含 -->
-		<jsp:include page="page/top.jsp"></jsp:include>
-	
-		
-		<div class="row">
-		
-			<jsp:include page="page/nav.jsp"></jsp:include>
-			
-			<div class="col-md-9">
-
+				
+				<div id="toolbar">
+					<button  type="button" class="btn btn-default" onclick="addRole()">增加</button>
+				</div>
 				<table id="table"></table>
 
 				<!-- 修改块  start-->
-				<div id="wrap">
+				<div id="wrap" >
 					<form id="form" method="post" role="form"
 						enctype="multipart/form-data">
-						<div class="form-group" >
+						<div class="form-group"  id="roleIdDiv">
 							<div class="input-group">
 								<label class="input-group-addon" for="roleId">角色ID</label> 
-								<input type="text" class="form-control" name="roleId"  readonly="readonly">
+								<input type="text" class="form-control" name="roleId" id="roleId" readonly="readonly">
 								
 							</div>
 						</div>
 						<div class="form-group" >
 							<div class="input-group">
 								<label class="input-group-addon" for="roleName">角色名称</label> 
-								<input type="text" class="form-control" name="roleName" readonly="readonly">
+								<input type="text" class="form-control" name="roleName" id="roleName" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group" >
@@ -74,17 +67,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</form>
 				</div>
 				<!-- 修改块  end-->
-			</div>
-		</div>
-		
-	</div>
-
-
 
 <script>
     $(function() {
     	Item.init();
     	$('#table').bootstrapTable({
+    		 toolbar:"#toolbar",
     		 method: 'get',
              url: "<%=path%>/queryRole",
              cache: false,
@@ -104,7 +92,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	 		title: '角色ID',
                         field: 'roleId',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        visible : false
                     },{
                         title: '角色名称',
                         field: 'roleName',
@@ -140,6 +129,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
     })
     
+    
+    function addRole(){
+    	$("#wrap").dialog({title:"增加角色",autoOpen: false});
+    	$('#form').form("clear");
+    	Item.commitUrl = '${ctx}/insertRole';
+    	$('#roleIdDiv').hide();
+    	$('#roleName').removeAttr("readonly");
+		$("#wrap").dialog("open");
+    }
+    
     function operateFormatter(value, row, index) {
         return ['',
 				'<button class="btn btn-default" id="modify" type="botton">修改</button>'
@@ -149,14 +148,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         'click #modify': function (e, value, row, index) {
         	$("#wrap").dialog({title:"修改角色",autoOpen: false});
         	$('#form').form("clear");
-        	
         	Item.commitUrl = '${ctx}/updateRole';
-        	
+        	$('#roleIdDiv').show();
+        	$('#roleName').attr("readonly","readonly");
 			$('#form').form("load",row);
+			zTreeInit();
 			$("#wrap").dialog("open");
         }
     };
-    
+   
     var Item = {
 			commitUrl : '',
 			init : function() {
@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						 }
 				        }, 
 					success:function(data){
-						 $("#wrap").dialog("close");
+						$("#wrap").dialog("close");
 						if(data =="success"){
 							 $.messager.popup("success!");
 							 $('#table').bootstrapTable('refresh');
@@ -189,6 +189,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$.messager.confirm("警告", "确定要更新吗!", function() {
 						$('#form').form('submit');
 					});
+				}else if(Item.commitUrl=='${ctx}/insertRole'){
+					$.messager.confirm("警告", "确定要增加吗!", function() {
+						$('#form').form('submit');
+					});
 				}else{
 					$('#form').form('submit');
 				}
@@ -200,42 +204,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 
   <SCRIPT LANGUAGE="JavaScript">
-   var zTreeObjEdit;
-   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-   var zNodesEdit = null;
-   // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-   var settingEdit = {
-		async: {
-			enable: true,
-			url: "/queryMenu"
-		},
-		check: {
-			enable: true,
-			chkStyle: "checkbox",
-			chkboxType: { "Y": "ps", "N": "ps" }
-		},
-		data: {
-			key: {
-				name: "menuName",
-				url: "menuUrl"
-			},
-			simpleData: {
-				enable: true,
-				idKey: "menuId",
-				pIdKey: "parentId",
-				rootPId: "root"
-			}
-		},
-		callback: {
-			beforeCheck: zTreeBeforeCheck,
-			onCheck: zTreeOnCheck
-		}
+  
+  
+  function getAsyncUrl(treeId, treeNode) {
+		var roleId = $('#roleId').val();
+		var url = "/queryMenuEdit?roleId="+roleId+"";
+		return url;
+	};
 
-   };
-   $(document).ready(function(){
-	      zTreeObjEdit = $.fn.zTree.init($("#editTree"), settingEdit, zNodesEdit);
-   });
+   function zTreeInit(){
+	   var zTreeObjEdit;
+	   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+	   var zNodesEdit = null;
+	   // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
 	   
+				   
+			   
+	   var settingEdit = {
+				async: {
+					enable: true,
+					url: getAsyncUrl
+				},
+				check: {
+					enable: true,
+					chkStyle: "checkbox",
+					chkboxType: { "Y": "ps", "N": "ps" }
+				},
+				data: {
+					key: {
+						name: "menuName",
+						url: "menuUrl"
+					},
+					simpleData: {
+						enable: true,
+						idKey: "menuId",
+						pIdKey: "parentId",
+						rootPId: "root"
+					}
+				},
+				callback: {
+					beforeCheck: zTreeBeforeCheck,
+					onCheck: zTreeOnCheck
+				}
+
+		   };
+	   
+	      zTreeObjEdit = $.fn.zTree.init($("#editTree"), settingEdit, zNodesEdit);
+   };
+	
+   
   
    function zTreeBeforeCheck(treeId, treeNode) {
 	    return true;

@@ -27,16 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 
-	<div class="container">
-		<!-- 动态包含 -->
-		<jsp:include page="page/top.jsp"></jsp:include>
-	
-		
-		<div class="row">
-		
-			<jsp:include page="page/nav.jsp"></jsp:include>
-			
-			<div class="col-md-9">
+
 				
 				<table id="table"></table>
 				<!-- 修改块  start-->
@@ -107,10 +98,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</form>
 				</div>
 				<!-- 修改块  end-->
-			</div>
-		</div>
-		
-	</div>
 
 
 <script>

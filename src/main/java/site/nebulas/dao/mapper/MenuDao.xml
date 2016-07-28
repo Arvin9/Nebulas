@@ -58,7 +58,7 @@
 			<if test="addTime !=null and addTime !='' ">
 				add_time = #{addTime}
 			</if>
-			<if test="ownMenus !=null and ownMenus !='' ">
+			<if test="ownMenus !=null">
 				own_menus = #{ownMenus}
 			</if>
 			<if test="addMan !=null and addMan !='' ">
@@ -67,6 +67,11 @@
 		</set>
 		where role_id = #{roleId}
 	</update>
+	
+	<insert id="insertRole">
+		insert into role_info (role_name,add_time,own_menus,add_man) 
+		values (#{roleName},#{addTime},#{ownMenus},#{addMan})
+	</insert>
 	
 	<update id="updateManage">
 		update manager

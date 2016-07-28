@@ -26,17 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	<script src="<%=path%>/resources/ztree/js/jquery.ztree.exedit.min.js" type="text/javascript" ></script>
 </head>
 <body>
-
-	<div class="container">
-		<!-- 动态包含 -->
-		<jsp:include page="page/top.jsp"></jsp:include>
-	
-		
-		<div class="row">
-		
-			<jsp:include page="page/nav.jsp"></jsp:include>
-			
-			<div class="col-md-9">
+		<button type="button" class="btn btn-default" onclick="addMenu()">增加</button>
 				<table id="table"></table>
 				<!-- 修改块  start-->
 				<div id="wrap">
@@ -85,10 +75,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</form>
 				</div>
 				<!-- 修改块  end-->
-			</div>
-		</div>
-		
-	</div>
 
 
 <script>
@@ -162,6 +148,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
     })
     
+    function addMenu(){
+    	$("#wrap").dialog({title:"增加菜单",autoOpen: false});
+    	$('#form').form("clear");
+    	Item.commitUrl = '${ctx}/insertMenu';
+    	$('#roleIdDiv').hide();
+    	$('#roleName').removeAttr("readonly");
+		$("#wrap").dialog("open");
+    }
+    
     function operateFormatter(value, row, index) {
         return ['',
 				'<button class="btn btn-default" id="modify" type="botton">修改</button>'
@@ -205,6 +200,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 
 				if(Item.commitUrl=='${ctx}/updateMenu'){
+					$.messager.confirm("警告", "确定要更新吗!", function() {
+						$('#form').form('submit');
+					});
+				}else if(Item.commitUrl=='${ctx}/insertMenu'){
 					$.messager.confirm("警告", "确定要更新吗!", function() {
 						$('#form').form('submit');
 					});

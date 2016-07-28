@@ -57,13 +57,41 @@ public class MenuService {
 			}
 		}else{
 			for(Map<String,Object> map : oldMenuList){
-				map.put("target", "_self");
+				map.put("target", "mainFrame");
 				map.put("open", "true");
 				newMenuList.add(map);
 			}
 		}
 		return newMenuList;	
 	}
+	
+	public List<Map<String,Object>> getMenuEditByParm(Integer roleId){
+		Role rl = new Role();
+		Set<String> menuSet = new HashSet<String>();
+		
+		List<Map<String,Object>> oldMenuList = menuDao.getMenuByParm(roleId);
+		List<Map<String,Object>> newMenuList = new ArrayList<Map<String,Object>>();
+		
+		if(null != roleId){
+			rl.setRoleId(roleId);
+			List<Map<String,Object>> listRole= this.getRoleByParm(rl);
+			Map<String,Object> mapRole = listRole.get(0);
+			String ownMenus = (String)mapRole.get("ownMenus");
+			String[] menu = ownMenus.split(",");
+			menuSet.addAll(Arrays.asList(menu));
+			for(Map<String,Object> map : oldMenuList){
+				if(menuSet.contains(map.get("menuId"))){
+					map.put("open", "true");
+					map.put("checked", "true");
+				}
+				map.put("menuUrl", "");
+				newMenuList.add(map);
+			}
+		}
+		return newMenuList;	
+	}
+	
+	
 	public List<Map<String,Object>> getManageByParm(Manager manager){
 		return menuDao.getManageByParm(manager);
 	}
@@ -75,6 +103,11 @@ public class MenuService {
 	public void updateRole(Role role){
 		menuDao.updateRole(role);
 	}
+	public void insertRole(Role role){
+		menuDao.insertRole(role);
+	}
+	
+	
 	
 	public void updateManage(Manager manager){
 		menuDao.updateManage(manager);
