@@ -4,6 +4,7 @@ package site.nebulas.entity;
 public class Manager {
 	private Integer mId;
 	private Integer roleId;
+	private String roleName;
 	private String managerAccount;
 	private String password;
 	private String realName;
@@ -14,7 +15,6 @@ public class Manager {
 	private Integer isDelete;
 	
 	
-	private String roleName;
 	public Integer getmId() {
 		return mId;
 	}

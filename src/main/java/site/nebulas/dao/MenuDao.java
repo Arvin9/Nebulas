@@ -15,6 +15,7 @@ public interface MenuDao {
 	
 	public List<Map<String,Object>> getManageByParm(Manager manager);
 	public void updateManage(Manager manager);
+	public void insertManage(Manager manager);
 	
 	public List<Map<String,Object>> getRoleByParm(Role role);
 	public void updateRole(Role role);

@@ -28,7 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 
-				
+				<div id="toolbar">
+					<button  type="button" class="btn btn-default" onclick="addManage()">增加</button>
+				</div>
 				<table id="table"></table>
 				<!-- 修改块  start-->
 				<div id="wrap">
@@ -41,8 +43,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div class="form-group" >
 							<div class="input-group">
-								<label class="input-group-addon" for="roleId">角色ID</label> 
-								<input type="text" class="form-control" name="roleId">
+								<label class="input-group-addon" for="roleId">角色</label> 
+								<select type="text" class="form-control" name="roleId">
+									<c:forEach items="${roleMap}" var="role">
+										<option value ='${role.key}'>${role.value}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 						<div class="form-group" >
@@ -104,6 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     $(function() {
     	Item.init();
     	$('#table').bootstrapTable({
+    		 toolbar:"#toolbar",
     		 method: 'get',
              url: "<%=path%>/queryManage",
              cache: false,
@@ -126,11 +133,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         valign: 'middle',
                         visible: false
                     },{
-                        title: '角色ID',
-                        field: 'roleId',
+                        title: '角色',
+                        field: 'roleName',
                         align: 'left',
                         valign: 'middle',
                         sortable: true
+                        
                     },{
                         title: '名称',
                         field: 'managerAccount',
@@ -144,12 +152,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         valign: 'middle',
                         sortable: true
                     },{
-                        title: '添加时间',
-                        field: 'addTime',
-                        align: 'left',
-                        valign: 'middle',
-                        sortable: true
-                    },{
                         title: '是否被锁',
                         field: 'isLock',
                         align: 'center',
@@ -160,12 +162,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         	if(1 == value) return '是';
                         	return value;
                         }
-                    },{
-                        title: '添加人',
-                        field: 'addMan',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
                     },{
                         title: 'balance',
                         field: 'balance',
@@ -188,11 +184,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         valign: 'middle',
                         events: operateEvents,
                         formatter: operateFormatter
+                    },{
+                        title: '添加人',
+                        field: 'addMan',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
+                        title: '添加时间',
+                        field: 'addTime',
+                        align: 'left',
+                        valign: 'middle',
+                        sortable: true
                     }]
         })
         
     })
-
+	
+    
+    function addManage(){
+    	$("#wrap").dialog({title:"增加管理员",autoOpen: false});
+    	$('#form').form("clear");
+    	Item.commitUrl = '${ctx}/insertManage';
+		$("#wrap").dialog("open");
+    }
     
     function operateFormatter(value, row, index) {
         return ['',
@@ -236,6 +251,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 
 				if(Item.commitUrl=='${ctx}/updateManage'){
+					$.messager.confirm("警告", "确定要更新吗!", function() {
+						$('#form').form('submit');
+					});
+				}
+				if(Item.commitUrl=='${ctx}/insertManage'){
 					$.messager.confirm("警告", "确定要更新吗!", function() {
 						$('#form').form('submit');
 					});

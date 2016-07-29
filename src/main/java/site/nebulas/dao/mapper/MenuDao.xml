@@ -24,7 +24,8 @@
 			m.is_lock isLock,
 			m.add_man addMan,
 			m.balance balance,
-			m.is_delete isDelete
+			m.is_delete isDelete,
+			r.role_name roleName
 		from manager m
 		left join role_info r
 		on m.role_id = r.role_id  
@@ -71,6 +72,13 @@
 	<insert id="insertRole">
 		insert into role_info (role_name,add_time,own_menus,add_man) 
 		values (#{roleName},#{addTime},#{ownMenus},#{addMan})
+	</insert>
+	
+	
+	
+	<insert id="insertManage">
+		insert into manager (role_id,manager_account,real_name,add_time,is_lock,add_man,balance,is_delete) 
+		values (#{roleId},#{managerAccount},#{realName},#{addTime},#{isLock},#{addMan},#{balance},#{isDelete})
 	</insert>
 	
 	<update id="updateManage">

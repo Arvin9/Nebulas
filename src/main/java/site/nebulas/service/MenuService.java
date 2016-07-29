@@ -112,6 +112,10 @@ public class MenuService {
 	public void updateManage(Manager manager){
 		menuDao.updateManage(manager);
 	}
+	public void insertManage(Manager manager){
+		menuDao.insertManage(manager);
+	}
+	
 	
 	public void insert(Menu menu){
 		menuDao.insert(menu);

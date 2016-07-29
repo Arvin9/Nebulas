@@ -1,24 +1,20 @@
 package site.nebulas.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import site.nebulas.entity.Manager;
 import site.nebulas.entity.Menu;
 import site.nebulas.entity.Role;
-import site.nebulas.service.DailySentenceService;
 import site.nebulas.service.MenuService;
-
 
 
 @Controller
@@ -43,7 +39,6 @@ public class menuController {
 	
 	@RequestMapping("login")
 	public String login(Model model,String userName,String password){
-		System.out.println(userName);
 		if("admin".equals(userName)){
 			model.addAttribute("roleId", "10000");
 			return "menu";
@@ -79,6 +74,16 @@ public class menuController {
 	@RequestMapping("userManage")
 	public ModelAndView userManage(){
 		ModelAndView modelAndView = new ModelAndView("userManage");
+		List<Map<String,Object>> roleList = menuService.getRoleByParm(null);
+		Map<String,Object> roleMap = new HashMap<String,Object>();
+		
+		for(Map<String,Object> map : roleList){
+			roleMap.put(map.get("roleId").toString(), map.get("roleName"));
+		}
+		
+		
+		System.out.println(roleMap);
+		modelAndView.addObject("roleMap",roleMap);
 		return modelAndView;
 	}
 	
@@ -106,8 +111,7 @@ public class menuController {
 	
 	@RequestMapping("queryManage")
 	@ResponseBody
-	public Object queryManage(Manager manager){
-		logger.info(menuService.getManageByParm(manager).toString());
+	public Object queryManage(Manager manager,Model model){
 		return menuService.getManageByParm(manager);
 	}
 	
@@ -117,11 +121,16 @@ public class menuController {
 		menuService.updateManage(manager);
 		return "success";
 	}
+	@RequestMapping("insertManage")
+	@ResponseBody
+	public String insertManage(Manager manager){
+		menuService.insertManage(manager);
+		return "success";
+	}
 	
 	@RequestMapping("queryRole")
 	@ResponseBody
 	public Object queryRole(Role role){
-		logger.info(menuService.getRoleByParm(role).toString());
 		return menuService.getRoleByParm(role);
 	}
 	@RequestMapping("updateRole")
