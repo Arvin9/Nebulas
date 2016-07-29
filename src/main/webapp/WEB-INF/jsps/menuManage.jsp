@@ -26,7 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	<script src="<%=path%>/resources/ztree/js/jquery.ztree.exedit.min.js" type="text/javascript" ></script>
 </head>
 <body>
-		<button type="button" class="btn btn-default" onclick="addMenu()">增加</button>
+				<div id="toolbar">
+					<button  type="button" class="btn btn-default" onclick="addMenu()">增加</button>
+				</div>
 				<table id="table"></table>
 				<!-- 修改块  start-->
 				<div id="wrap">
@@ -81,6 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     $(function() {
     	Item.init();
     	$('#table').bootstrapTable({
+    	     toolbar:"#toolbar",
     		 method: 'get',
              url: "<%=path%>/queryMenu",
              cache: false,

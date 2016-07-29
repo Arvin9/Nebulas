@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -21,14 +21,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<link href="<%=path%>/resources/css/signin.css" rel="stylesheet">
 		<script src="<%=path%>/resources/lib/jquery-1.11.1.js"></script>
 		<script src="<%=path%>/resources/js/bootstrap.min.js"></script>
+		<script src="<%=path%>/resources/js/jquery.easyui.min.js"></script>
+		<script src="<%=path%>/resources/js/jquery.bootstrap.min.js"></script>
 		<script src="<%=path%>/resources/js/dropdown.js"></script>
-
+		<script src="<%=path%>/resources/js/md5.min.js"></script>
   </head>
   
   <body>
 		<div class="container">
-
-			<form class="form-signin" action="login" method="post">
+			
+			<form class="form-signin" id="form" action="login" method="post">
 				<h2 class="form-signin-heading">
 					Please sign in
 				</h2>
@@ -36,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					Email address
 				</label>
 				<input type="text" id="userName" name="userName" class="form-control"
-					placeholder="Email address" required autofocus>
+					 required autofocus>
 				<label for="inputPassword" class="sr-only">
 					Password
 				</label>
@@ -48,13 +50,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						Remember me
 					</label>
 				</div>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">
+				<button class="btn btn-lg btn-primary btn-block" type="button" onclick="login()">
 					Sign in
 				</button>
 			</form>
-
 		</div>
 		<!-- /container -->
-
+		<script>
+		var message = "${message}"
+		if("no" == message){
+			$.messager.alert("警告","无此用户");
+		}else if("error" == message){
+			$.messager.alert("警告","密码错误");
+		}
+		function login(){
+			var userName = $('#userName').val();
+			var password = md5($('#password').val());
+			$('#password').val(password);
+			$('#form').submit();
+			
+		}
+		</script>		
+		
 	</body>
 </html>

@@ -19,6 +19,7 @@
 			m.m_id mId,
 			m.role_id roleId,
 			m.manager_account managerAccount,
+			m.password password,
 			m.real_name realName,
 			m.add_time addTime,
 			m.is_lock isLock,
@@ -28,7 +29,12 @@
 			r.role_name roleName
 		from manager m
 		left join role_info r
-		on m.role_id = r.role_id  
+		on m.role_id = r.role_id
+		<where>
+			<if test="managerAccount != null and managerAccount != ''">
+				m.manager_account = #{managerAccount}
+			</if>
+		</where>  
 		ORDER BY m.m_id ASC
 	</select>
 	
@@ -132,6 +138,11 @@
 		</set>
 		where id = #{id}
 	</update>
+	
+	<insert id="insertMenu">
+		insert into menu_info (menu_id,menu_name,parent_id,menu_url,available) 
+		values (#{menuId},#{menuName},#{menuName},#{menuUrl},#{available})
+	</insert>
 	
 	
 </mapper>

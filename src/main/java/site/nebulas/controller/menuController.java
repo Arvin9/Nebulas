@@ -38,20 +38,28 @@ public class menuController {
 	}
 	
 	@RequestMapping("login")
-	public String login(Model model,String userName,String password){
-		if("admin".equals(userName)){
-			model.addAttribute("roleId", "10000");
-			return "menu";
+	public String  login(Model model,String userName,String password){
+		Map<String,String> map = new HashMap<String,String>();
+		System.out.println(userName+"  "+password);
+		Manager manager = new Manager();
+		manager.setManagerAccount(userName);
+		List<Map<String, Object>>  managerList= menuService.getManageByParm(manager);
+		System.out.println(managerList.toString());
+		if(null == managerList || managerList.size() < 1){
+			model.addAttribute("message", "no");
+			System.out.println("无此用户");
+			return "signIn";
+		}else{
+			if(password.equals(managerList.get(0).get("password"))){
+				model.addAttribute("roleId", managerList.get(0).get("roleId").toString());
+				return"menu";
+			}else{
+				model.addAttribute("message", "error");
+				System.out.println("密码错误");
+				return "signIn";
+			}
+			
 		}
-		if("test1".equals(userName)){
-			model.addAttribute("roleId", "10009");
-			return "menu";
-		}
-		if("test2".equals(userName)){
-			model.addAttribute("roleId", "10010");
-			return "menu";
-		}
-		return "signIn";
 	}
 	
 	
@@ -109,9 +117,16 @@ public class menuController {
 		return "success";
 	}
 	
+	@RequestMapping("insertMenu")
+	@ResponseBody
+	public String insertMenu(Menu menu){
+		menuService.insertMenu(menu);
+		return "success";
+	}
+	
 	@RequestMapping("queryManage")
 	@ResponseBody
-	public Object queryManage(Manager manager,Model model){
+	public Object queryManage(Manager manager){
 		return menuService.getManageByParm(manager);
 	}
 	

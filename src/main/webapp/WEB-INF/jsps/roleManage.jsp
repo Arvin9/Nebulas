@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group" >
 							<div class="input-group">
 								<label class="input-group-addon" for="roleName">角色名称</label> 
-								<input type="text" class="form-control" name="roleName" id="roleName" readonly="readonly">
+								<input type="text" class="form-control" name="roleName" id="roleName" required="required">
 							</div>
 						</div>
 						<div class="form-group" >
@@ -57,10 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label class="input-group-addon" for="ownMenus">所属菜单</label> 
 								<input type="text" class="form-control" name="ownMenus" id="ownMenus" readonly="readonly">
 							</div>
+							<div>
+								<ul id="editTree" class="ztree"></ul>
+							</div>
 						</div>
-						<div>
-							<ul id="editTree" class="ztree"></ul>
-						</div>
+						
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						
 						<a onclick="Item.save()" class="btn btn-primary" id="submitButton">提交</a>
@@ -135,7 +136,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	$('#form').form("clear");
     	Item.commitUrl = '${ctx}/insertRole';
     	$('#roleIdDiv').hide();
+    	$('#roleName').attr("required","required");
     	$('#roleName').removeAttr("readonly");
+    	zTreeInit();
 		$("#wrap").dialog("open");
     }
     
@@ -150,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	$('#form').form("clear");
         	Item.commitUrl = '${ctx}/updateRole';
         	$('#roleIdDiv').show();
-        	$('#roleName').attr("readonly","readonly");
+        	
 			$('#form').form("load",row);
 			zTreeInit();
 			$("#wrap").dialog("open");
@@ -208,7 +211,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   function getAsyncUrl(treeId, treeNode) {
 		var roleId = $('#roleId').val();
-		var url = "/queryMenuEdit?roleId="+roleId+"";
+		var url;
+		if(null == roleId){
+			url = "/queryMenuEdit";
+		}else{
+			url = "/queryMenuEdit?roleId="+roleId+"";
+		}
 		return url;
 	};
 

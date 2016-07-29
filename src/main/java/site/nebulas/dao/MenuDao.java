@@ -9,7 +9,7 @@ import site.nebulas.entity.Role;
 
 public interface MenuDao {
 	public List<Map<String,Object>> getMenuByParm(Integer roleId);
-	public void insert(Menu menu);	
+	public void insertMenu(Menu menu);	
 	public void updateMenu(Menu menu);
 	public void delete(Menu menu);
 	
