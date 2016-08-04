@@ -19,9 +19,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/resources/lib/jquery-1.11.1.js"></script>
 	<script src="<%=path%>/resources/js/bootstrap.min.js"></script>
 	<script src="<%=path%>/resources/js/jquery.easyui.min.js"></script>
-	<script src="<%=path%>/resources/js/jquery.bootstrap.min.js"></script>
-	<script src="<%=path%>/resources/jquery-validation/1.11.1/jquery.validate.min.js"></script>
 	<script src="<%=path%>/resources/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="<%=path%>/resources/js/bootstrap-editable.js"></script>
+	<script src="<%=path%>/resources/js/jquery.bootstrap.min.js"></script>
+	<script src="<%=path%>/resources/js/bootstrap-table-editable.js"></script>
+	<script src="<%=path%>/resources/jquery-validation/1.11.1/jquery.validate.min.js"></script>
+	
   	<script src="<%=path%>/resources/ztree/js/jquery.ztree.core.min.js" type="text/javascript" ></script>
  	<script src="<%=path%>/resources/ztree/js/jquery.ztree.exedit.min.js" type="text/javascript" ></script>
 </head>
@@ -110,7 +113,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         field: 'menuName',
                         align: 'center',
                         valign: 'middle',
-                        sortable: true
+                        sortable: true,
+                        editable: true
                     },{
                         title: '菜单ID',
                         field: 'menuId',
