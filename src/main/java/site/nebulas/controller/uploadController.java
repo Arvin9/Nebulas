@@ -127,43 +127,9 @@ public class uploadController {
 	public String jQueryFileUploadFile(@RequestParam("uploadFile")MultipartFile uploadFile) throws IOException{
 		File file = new File();
 		String result = "";
-		if (uploadFile!=null&&!uploadFile.isEmpty()) {
-			file.setFileName(uploadFile.getOriginalFilename());
-			file.setFileType(uploadFile.getContentType());
-			file.setFileSize(uploadFile.getSize());
-			file.setFielContent(uploadFile.getBytes());
-			file.setAddTime(DateUtil.getSysdate(DateUtil.TYPE_DATETIME));  
+		if (uploadFile!=null) {
 			
-			//上传翻译任务
-			String contentBase64 = Encodes.encodeBase64(uploadFile.getBytes());
-			Builder builder = RequestConfig.custom()
-				    .setSocketTimeout(10000)
-				    .setConnectTimeout(30000);
-			RequestConfig config = builder.build();
-			HttpClientBuilder builder2 = HttpClients.custom().setDefaultRequestConfig(config);
-			HttpClient httpClient = builder2.build();
-			HttpPost httpPost = new HttpPost("http://open.99yee.cn/api/jobs.json");
-			httpPost.addHeader("Authorization", "ox33EZiJQ6wskcxFZbWu");
-			
-			
-			Map<String, Object> json = new HashMap<>();
-			Map<String, Object> job = new HashMap<>();
-			Map<String, String> origin_file = new HashMap<>();
-			origin_file.put("name", uploadFile.getOriginalFilename());
-			origin_file.put("content",contentBase64);
-			job.put("origin_file", origin_file);
-			job.put("origin_language_id", "1");
-			job.put("target_language_id", "2");
-			job.put("translate_type_id", "1");
-			json.put("job", job);
-			StringEntity  entity = new StringEntity ( new Gson().toJson(json), Consts.UTF_8);
-			logger.info(new Gson().toJson(json));
-			entity.setContentType("application/json;charset=utf-8");
-			httpPost.setEntity(entity);
-			HttpResponse response = httpClient.execute(httpPost);
-			
-			result = EntityUtils.toString(response.getEntity());
-			System.out.println(result); 
+		
 			
 			logger.info("uploadFileName:"+file.getFileName());
 			logger.info("uploadFileType:"+file.getFileType());
@@ -176,7 +142,7 @@ public class uploadController {
 	}
 	
 	 
-	@Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次  
+	@Scheduled(cron="*/5 * *  * * ? ")   //每5秒执行一次  
 	public void myTest(){  
 		System.out.println("进入测试");  
 	}  

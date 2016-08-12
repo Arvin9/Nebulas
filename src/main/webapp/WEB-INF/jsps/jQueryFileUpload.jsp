@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="<%=path%>/resources/js/vendor/jquery.ui.widget.js"></script>
 <script src="<%=path%>/resources/js/jquery.iframe-transport.js"></script>
 <script src="<%=path%>/resources/js/jquery.fileupload.js"></script>
-
+<script src="<%=path%>/resources/md5.js"></script>
 
 <script>
 $(function () {
@@ -72,12 +72,22 @@ $(function () {
 	        dropZone: $('#dropzone'),
 	        url: 'jQueryFileUploadFile',
 	        paramName: 'uploadFile',
-	        add: function (e, data) {
+	        //singleFileUploads :false,
+	        //sequentialUploads : true,
+			add: function (e, data) {
+				alert(data);
 	            data.context = $('<p/>').text('Uploading...').appendTo(document.body);
+	            $.each(data.files, function (index, file) {
+	                console.log('add file: ' + file.name);
+	                document.getElementById("progress").innerHTML += 
+		        		"<p id = \"p"+file.name+"\">"+file.name+"</p><div class=\"bar\" id = \""+file.name+"\"style=\"width: 0%;\"></div>"
+	                
+	            });
 	            data.submit();
-	        },
+	        },	        
 	        drop: function (e, data) {
-	        	
+	        	console.log('drop');
+	        	console.log(data);
 	            $.each(data.files, function (index, file) {
 	                console.log('Dropped file: ' + file.name);
 	                document.getElementById("progress").innerHTML += 
@@ -91,20 +101,22 @@ $(function () {
 	            });
 	        },
 	        done: function (e, data) {
+	        	console.log('done');
+	        	console.log(data);
 	            $.each(data.result.files, function (index, file) {
+	            	console.log(file);
+	            	console.log(index);
+	            	console.log(file.name);
 	                $('<p/>').text(file.name).appendTo(document.body);
 	            });
 	        },
 		    progress: function (e, data) {
-		    	
-		
 			    var progress = parseInt(data.loaded / data.total * 100, 10);
 			    document.getElementById(data.files[0].name).style.width = progress + '%';
 		        document.getElementById(data.files[0].name).innerHTML = progress + '%';
-			   
 		    },
 		    processdone: function (e, data) {
-		    	//alert('Processing ' + data.files[data.index].name + ' done.');
+		    	alert('Processing ' + data.files[data.index].name + ' done.');
 		    } 
     	});
     
@@ -113,6 +125,11 @@ $(function () {
     
     
 });
+
+
+console.log(hex_md5("CHh"));
+console.log(hex_md5("chh"));
+console.log(b64_md5("chh"));
 </script>
 </body> 
 </html>
