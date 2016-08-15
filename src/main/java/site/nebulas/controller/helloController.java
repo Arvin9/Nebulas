@@ -24,10 +24,6 @@ public class helloController {
 	@RequestMapping("/hello")
 	public String hello(){
 		
-		System.out.println(dailySentenceService.getDailySentenceByParm(null).get(0).getSentence());
-		System.out.println(dailySentenceService.getDailySentenceByParm(null).size());
-		logger.debug(dailySentenceService.getDailySentenceByParm(null).toString());
-		logger.debug("helllo debug");
 		
 		return "hellomvc";
 	}
