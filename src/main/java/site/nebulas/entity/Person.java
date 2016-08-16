@@ -49,10 +49,11 @@ public class Person {
 		childList.add(child11);
 		childList.add(child12);
 		Person person = new Person("person",1,childList);
-		
 		System.out.println(JSONArray.toJSON(person));
 		//输出
 		//{"name":"person","children":[{"name":"child11","age":11},{"name":"child12","age":12}],"age":1}
 
+		
+		
 	}
 }
