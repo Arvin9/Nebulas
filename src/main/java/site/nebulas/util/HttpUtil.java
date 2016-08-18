@@ -1,5 +1,6 @@
 package site.nebulas.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -17,7 +18,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair; 
+import org.apache.http.NameValuePair;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;  
+import org.apache.http.entity.mime.content.StringBody;
 
 public class HttpUtil {
 	
@@ -76,21 +81,18 @@ public class HttpUtil {
         try {  
             CloseableHttpResponse response = httpclient.execute(httpget);  
             try {  
-                HttpEntity entity = response.getEntity();
-                InputStream in = entity.getContent();
-                StringBuffer   out   =   new   StringBuffer(); 
-                byte[]   b   =   new   byte[4096];
-                for (int n;(n = in.read(b)) != -1;){ 
-                	out.append(new String(b,0,n)); 
-                } 
-                System.out.println("content:" + out);
-                /*
+            	 // 获取响应实体    
+                HttpEntity entity = response.getEntity();  
+                System.out.println("--------------------------------------");  
+                // 打印响应状态    
+                System.out.println(response.getStatusLine());  
                 if (entity != null) {  
-                    System.out.println("--------------------------------------");  
-                    System.out.println("Response content: " + EntityUtils.toString(entity, "UTF-8"));  
-                    System.out.println("--------------------------------------");  
-                } 
-                */ 
+                    // 打印响应内容长度    
+                    System.out.println("Response content length: " + entity.getContentLength());  
+                    // 打印响应内容    
+                    System.out.println("Response content: " + EntityUtils.toString(entity));  
+                }  
+                System.out.println("------------------------------------");  
             } finally {  
                 response.close();  
             }  
@@ -109,6 +111,48 @@ public class HttpUtil {
             }  
         }  
     }
+    
+    
+    /** 
+     * 上传文件 
+     */  
+    public void upload() {  
+        CloseableHttpClient httpclient = HttpClients.createDefault();  
+        try {  
+            HttpPost httppost = new HttpPost("http://localhost:8080/myDemo/Ajax/serivceFile.action");  
+  
+            FileBody bin = new FileBody(new File("F:\\image\\sendpix0.jpg"));  
+            StringBody comment = new StringBody("A binary file of some kind", ContentType.TEXT_PLAIN);  
+  
+            HttpEntity reqEntity = MultipartEntityBuilder.create().addPart("bin", bin).addPart("comment", comment).build();  
+  
+            httppost.setEntity(reqEntity);  
+  
+            System.out.println("executing request " + httppost.getRequestLine());  
+            CloseableHttpResponse response = httpclient.execute(httppost);  
+            try {  
+                System.out.println("----------------------------------------");  
+                System.out.println(response.getStatusLine());  
+                HttpEntity resEntity = response.getEntity();  
+                if (resEntity != null) {  
+                    System.out.println("Response content length: " + resEntity.getContentLength());  
+                }  
+                EntityUtils.consume(resEntity);  
+            } finally {  
+                response.close();  
+            }  
+        } catch (ClientProtocolException e) {  
+            e.printStackTrace();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        } finally {  
+            try {  
+                httpclient.close();  
+            } catch (IOException e) {  
+                e.printStackTrace();  
+            }  
+        }  
+    }  
 	
 	public static void main(String[] args) {
 		get();
