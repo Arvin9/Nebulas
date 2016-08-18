@@ -145,12 +145,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<!-- Area Charts:Morris --><!-- Chat -->
           <div class="col-md-6">
-            <div class="widget-container scrollable chat" style="height: 427px;">
+            <div  class="widget-container scrollable chat" style="height: 427px;">
               <div class="heading">
                 <i class="icon-comments"></i>聊天工具<i class="icon-smile pull-right"></i>
               </div>
-              <div class="widget-content padded">
-                <ul>
+              <div class="widget-content padded" id="scroll">
+                <ul id="scrolValue">
                   <li>
                     <img width="30" height="30" src="images/avatar-male.jpg" />
                     <div class="bubble">
@@ -215,7 +215,9 @@ type="submit" value="发送">
 	
 	
 	
-	
+	<script>
+	document.getElementById('scroll').scrollTop = document.getElementById('scrolValue').scrollHeight;
+	</script>
 	
 	
 </div>
