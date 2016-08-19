@@ -34,11 +34,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h2 class="form-signin-heading">
 					Please sign in
 				</h2>
-				<label for="inputEmail" class="sr-only">
-					Email address
-				</label>
-				<input type="text" id="userName" name="userName" class="form-control"
-					 required autofocus>
+				<div class="input-group">
+					<label for="inputEmail" class="sr-only">
+						Email address
+					</label>
+					<input type="text" id="userName" name="userName" class="form-control"
+						 required autofocus placeholder="userAccount" >
+						 <div class="input-group-addon">
+						 	<span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
+						 </div>
+	  						
+					</input>
+				</div>
 				<label for="inputPassword" class="sr-only">
 					Password
 				</label>
