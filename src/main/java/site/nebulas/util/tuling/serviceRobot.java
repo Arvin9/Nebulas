@@ -14,17 +14,17 @@ import site.nebulas.util.tuling.util.PostServer;
  * @author 图灵机器人
  *
  */
-public class AesTest {
+public class serviceRobot {
 	
 	@Test
-	public static void testAes(){
+	public static String askRobot(String message){
 		//图灵网站上的secret
-		String secret = "5b56794e4fa74a53";
+		String secret = "be69160973833095";
 		//图灵网站上的apiKey
-		String apiKey = "72307a3ae94c424381b2a023a9df3520";
-		String cmd = "你会什么";//测试用例
+		String apiKey = "344bc11d2ffe4b33be4f0a3ed857881c";
+		//String cmd = "你会什么";//测试用例
 		//待加密的json数据
-		String data = "{\"key\":\""+apiKey+"\",\"info\":\""+cmd+"\"}";
+		String data = "{\"key\":\""+apiKey+"\",\"info\":\""+message+"\"}";
 		//获取时间戳
 		String timestamp = String.valueOf(System.currentTimeMillis());
 		
@@ -44,9 +44,10 @@ public class AesTest {
 		//请求图灵api
 		String result = PostServer.SendPost(json.toString(), "http://www.tuling123.com/openapi/api");
 		System.out.println(result);
+		return result;
 	}
 	public static void main(String[] args) {
-		testAes();
+		askRobot("你好");
 	}
 	
 }

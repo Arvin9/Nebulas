@@ -32,29 +32,34 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 
-	<!-- 配置ViewResolver。 可以用多个ViewResolver。 使用order属性排序。 InternalResourceViewResolver放在最后。 -->
-	<bean
-		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-		<property name="order" value="1" />
-		<property name="mediaTypes">
-			<map>
-				<entry key="json" value="application/json" />
-				<entry key="xml" value="application/xml" />
-				<entry key="htm" value="text/html" />
-			</map>
-		</property>
-
-		<property name="defaultViews">
-			<list>
-				<!-- JSON View -->
-				<bean
-					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-				</bean>
-			</list>
-		</property>
-		<property name="ignoreAcceptHeader" value="true" />
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">  
+		<property name="supportedMediaTypes">  
+	        <list>  
+	            <bean class="org.springframework.http.MediaType">  
+	                <constructor-arg value="text" />  
+	                <constructor-arg value="plain" />  
+	                <constructor-arg value="UTF-8" />  
+	            </bean>  
+	        </list>  
+    	</property>  
 	</bean>
-
+	<!-- json -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+    <property name="messageConverters">  
+        <list>  
+            <ref bean="jsonHttpMessageConverter" />  
+        </list>  
+    </property>  
+	</bean>  
+	  
+	<bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+	    <property name="supportedMediaTypes">  
+	        <list>  
+	            <value>application/json;charset=utf-8</value>  
+	        </list>  
+	    </property>  
+	</bean>  
+	<!-- /json -->
 
 	<!-- 定义跳转的文件的前后缀 ，视图模式配置-->
 	<bean
