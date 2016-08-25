@@ -220,6 +220,21 @@ type="submit" value="发送">
 	</script>
 	
 	
+	
+	<ul class="nav nav-stacked">
+	  <li role="presentation" class="active">
+	  	<a href="#">Home</a>
+		  	<ul class="nav nav-stacked">
+		  <li role="presentation" class="active"><a href="#">Home</a></li>
+		  <li role="presentation"><a href="#">Profile</a></li>
+		  <li role="presentation"><a href="#">Messages</a></li>
+		</ul>	
+	  </li>
+	  <li role="presentation"><a href="#">Profile</a></li>
+	  <li role="presentation"><a href="#">Messages</a></li>
+	</ul>
+	
+	
 </div>
 
 </body>

@@ -24,7 +24,7 @@ public class helloController {
 	@RequestMapping("/hello")
 	public String hello(){
 		
-		
+		logger.info("hello");
 		return "hellomvc";
 	}
 	@RequestMapping("serviceRobot")
