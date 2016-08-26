@@ -26,7 +26,7 @@ public class TimerService implements InitializingBean {
 	 * 
 	 * 
 	 * */
-	@Scheduled(cron="0/5 * * * * *")
+	@Scheduled(cron="0 0/1 * * * *")
 	public void timer() {
 		System.out.println("121");
 	}
