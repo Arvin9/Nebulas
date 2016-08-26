@@ -8,7 +8,10 @@
   <!-- Spring应用上下文， 理解层次化的ApplicationContext -->
   <context-param>
  		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:applicationContext*.xml</param-value>
+		<param-value>
+			classpath:spring.xml,
+			classpath:spring-mybatis.xml
+		</param-value>
   </context-param>
   
   <listener>
@@ -25,7 +28,7 @@
 		 -->
 		<init-param>
           <param-name>contextConfigLocation</param-name>
-          <param-value>classpath:mvc-dispatcher-servlet.xml</param-value>
+          <param-value>classpath:spring-mvc.xml</param-value>
         </init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -48,13 +51,6 @@
              org.springframework.web.util.Log4jConfigListener      
         </listener-class>     
     </listener>
-
-	
-	<context-param>
- 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring-mybatis.xml</param-value>
-  	</context-param>
-
 
 
 	<welcome-file-list>

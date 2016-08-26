@@ -33,10 +33,6 @@ public class helloController {
 	}
 	
 	 
-	@Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次  
-	public void myTest(){  
-		System.out.println("进入测试");  
-	}  
 	
 	@RequestMapping(value="askRobot",produces = "text/html;charset=UTF-8")
 	@ResponseBody

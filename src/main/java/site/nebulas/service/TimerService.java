@@ -23,7 +23,7 @@ public class TimerService implements InitializingBean {
 	/*
 	 * 0 0 3 * * *  
 	 * 
-	 * 每天3点将昨天未支付的订单状态改为已删除
+	 * 
 	 * 
 	 * */
 	@Scheduled(cron="0/5 * * * * *")
