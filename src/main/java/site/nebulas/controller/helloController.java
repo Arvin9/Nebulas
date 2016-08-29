@@ -40,4 +40,9 @@ public class helloController {
 		return site.nebulas.util.tuling.serviceRobot.askRobot(message);
 	}
 	
+	@RequestMapping("share")
+	public String share(){
+		logger.info("share");
+		return "share";
+	}
 }
