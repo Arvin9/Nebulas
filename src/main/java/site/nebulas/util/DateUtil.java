@@ -1,5 +1,7 @@
 package site.nebulas.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
@@ -12,9 +14,6 @@ public class DateUtil {
     public final static String TYPE_DATE = "date";  
     public final static String TYPE_DATETIME = "datetime"; 
 	
-	public static void main(String[] args) {
-		System.out.println(getSysdate(TYPE_DATETIME));
-	}
 	/** 
      * 得到系统日期 
      * @return YYYY-MM-DD 
@@ -71,7 +70,22 @@ public class DateUtil {
                     }  
             } else {  
                     return "非日期类型";  
-            }  
+            }   
     }  
- 
+
+    
+    public static void main(String[] args) {
+    	Date date = new Date();
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	System.out.println(sdf.format(System.currentTimeMillis()));
+    	//获取当前时间戳
+    	System.out.println("获取当前时间戳:" + System.currentTimeMillis());
+    	//new Date()
+		System.out.println("new Date():" + new Date());
+		
+		System.out.println("获取当前时间戳:" + date.getTime());
+		
+		
+	}
+    
 }
