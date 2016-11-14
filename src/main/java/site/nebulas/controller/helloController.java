@@ -45,4 +45,11 @@ public class helloController {
 		logger.info("share");
 		return "share";
 	}
+	
+	@RequestMapping("/qr")
+	public String qr(){
+		
+		logger.info("qr");
+		return "qrCode";
+	}
 }
