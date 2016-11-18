@@ -76,7 +76,7 @@ public class HttpUtil {
         // 创建默认的httpClient实例.    
         CloseableHttpClient httpclient = HttpClients.createDefault();  
         // 创建httpget    
-        HttpGet httpget = new HttpGet("https://www.baidu.com/s?wd=i");  
+        HttpGet httpget = new HttpGet("https://www.baidu.com/");  
        
         try {  
             CloseableHttpResponse response = httpclient.execute(httpget);  
@@ -90,9 +90,9 @@ public class HttpUtil {
                     // 打印响应内容长度    
                     System.out.println("Response content length: " + entity.getContentLength());  
                     // 打印响应内容    
-                    System.out.println("Response content: " + EntityUtils.toString(entity));  
+                    System.out.println("Response content: " + EntityUtils.toString(entity));
                 }  
-                System.out.println("------------------------------------");  
+                System.out.println("------------------------------------"); 
             } finally {  
                 response.close();  
             }  
